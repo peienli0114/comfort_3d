@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mapbox + Three.js 3D Shape</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.min.js"
+        type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.css" rel="stylesheet">
+    <script src="js/three-js-capsule-geometry.min.js"></script>
+    <style>
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id='map' class='map'></div>
+
+    <script>
+        var origin = [121.5317, 25.0392, 60];
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYmlhYm9ibyIsImEiOiJjamVvejdlNXQxZnBuMndtdWhiZHRuaTNpIn0.PIS9wtUxm_rz_IzF2WFD1g';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/biabobo/clps3zka200dm01pxhwc0dnea',
+            center: origin,
+            zoom: 18.5,
+            pitch: 60,
+            antialias: true
+        });
+
+        function createGradientCapsule() {
+            var material = new THREE.MeshBasicMaterial({
+                vertexColors: THREE.VertexColors, // 啟用頂點色彩
+                side: THREE.DoubleSide // 設置顯示面
+            });
+
+            var geometry = new THREE.CapsuleBufferGeometry(
+                this.radiusTop = 6,
+                this.radiusBottom = 6,
+                this.height = 10,
+                this.radialSegments = 16,
+                this.heightSegments = 10,
+                this.capsTopSegments = 8,
+                this.capsBottomSegments = 8,
+                this.thetaStart = 0,
+                this.thetaLength = 2 * Math.PI
+            );
+            geometry.rotateX(Math.PI / 2);
+
+            // let cube = new THREE.Mesh(geometry, material);
+
+            // 為頂點設置漸層色彩
+            var colors = [];
+            var colorTop = new THREE.Color(0xff0000); // 頂部顏色，紅色
+            var colorBottom = new THREE.Color(0x00ff00); // 底部顏色，藍色
+
+            for (let i = 0; i < geometry.attributes.position.count; i++) {
+                // 根據垂直方向的位置計算漸層色
+                var yPos = geometry.attributes.position.getZ(i);
+                var gradient = yPos / 20; // 這裡的5是圓柱體的高度，根據你的需求調整
+
+                // console.log(yPos);
+                // console.log(gradient);
+                // console.log("---")
+
+                var color = new THREE.Color();
+                gColor = color.lerpColors(colorTop, colorBottom, gradient);
+                colors.push(gColor.r, gColor.g, gColor.b);
+            }
+
+            // for (let i = 0; i < geometry.attributes.position.count; i++) {
+            //     if(i < geometry.attributes.position.count / 2){
+            //         colors.push(colorTop.r, colorTop.g, colorTop.b);
+            //     }else{
+            //         colors.push(colorBottom.r, colorBottom.g, colorBottom.b);
+            //     }
+            // }
+
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+            var material = new THREE.MeshBasicMaterial({
+                vertexColors: THREE.VertexColors, // 啟用頂點色彩
+                side: THREE.DoubleSide // 設置顯示面
+            });
+
+            let cube = new THREE.Mesh(geometry, material);
+            // let cube = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: 0x660000 }));
+
+            // 单位设置为米
+            cube = tb.Object3D({ obj: cube, units: 'meters', })
+                .setCoords([121.531648, 25.03915, 50]) // 经纬度，高度为米
+
+            return cube;
+        }
+
+        function createSegmentCapsule() {
+            let radius = 4;
+            let widthSegments = 32;
+
+            var materialTop = new THREE.MeshBasicMaterial({ color: "#a1cb2b" });
+            var materialBottom = new THREE.MeshBasicMaterial({ color: "#439d9e" });
+
+            var upperGeometry = new THREE.SphereGeometry(radius, widthSegments, widthSegments / 2, 0, Math.PI); //radius : Float, widthSegments : Integer, heightSegments 
+            var lowerGeometry = new THREE.SphereGeometry(radius, widthSegments, widthSegments / 2, Math.PI, Math.PI);
+
+            var upperMesh = new THREE.Mesh(upperGeometry, materialTop);
+            var lowerMesh = new THREE.Mesh(lowerGeometry, materialBottom);
+            lowerMesh.position.z = -(radius * 2);
+
+            var cylinderGeometry1 = new THREE.CylinderGeometry(radius, radius, radius, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
+            var cylinder1 = new THREE.Mesh(cylinderGeometry1, materialTop);
+            cylinder1.rotateX(Math.PI / 2);
+            cylinder1.position.z = -(radius / 2);
+
+            var cylinderGeometry2 = new THREE.CylinderGeometry(radius, radius, radius, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
+            var cylinder2 = new THREE.Mesh(cylinderGeometry2, materialBottom);
+            cylinder2.rotateX(Math.PI / 2);
+            cylinder2.position.z = -(radius * 1.5);
+
+            var capsule = new THREE.Group();
+            capsule.add(upperMesh);
+            capsule.add(cylinder1);
+            capsule.add(cylinder2);
+            capsule.add(lowerMesh);
+
+            var newCoord = calculateNewCoordinates(25.03919, 121.5317, radius, -90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, radius / 2 * 1.38, 180)
+
+            var capsule3D = tb.Object3D({ obj: capsule, units: 'meters' });
+            capsule3D.setCoords([newCoord2.lon, newCoord2.lat, 50]);
+
+            return capsule3D;
+        }
+
+        function createSquareFromFaces() {
+            var materialTop = new THREE.MeshBasicMaterial({ color: "#a1cb2b" });
+            var materialBottom = new THREE.MeshBasicMaterial({ color: "#439d9e" });
+
+            var geometry = new THREE.BoxGeometry(3, 3, 3);
+            const material = new THREE.MeshBasicMaterial({ vertexColors: true });
+
+            const colors = [];
+            const color = new THREE.Color();
+            var positionAttribute = geometry.getAttribute('position');
+
+            console.log(positionAttribute.count);
+
+            for (let i = 0; i < positionAttribute.count; i++) {
+                color.set(Math.random() * 0xffffff);
+
+                // define the same color for each vertex of a triangle
+
+                colors.push(color.r, color.g, color.b);
+                colors.push(color.r, color.g, color.b);
+                colors.push(color.r, color.g, color.b);
+            }
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+            let cube = new THREE.Mesh(geometry, material);
+
+            // cube = tb.Object3D({ obj: cube, units: 'meters' });
+            // cube.setCoords([121.5317, 25.03919, 0]);
+            // cube.rotateY(Math.PI / 4);
+
+            var cube3D = tb.Object3D({ obj: cube, units: 'meters' });
+            cube3D.setCoords([121.5317, 25.03919, 20]);
+
+            return cube3D;
+        }
+
+        function createCube() {
+            var materialTop = new THREE.MeshBasicMaterial({ color: "#a1cb2b" });
+            var materialBottom = new THREE.MeshBasicMaterial({ color: "#439d9e" });
+
+            var geometry = new THREE.BoxGeometry(3, 3, 3);
+            let cube = new THREE.Mesh(geometry, [materialTop, materialTop, materialBottom, materialBottom, materialTop, materialTop]);
+
+            cube = tb.Object3D({ obj: cube, units: 'meters' });
+            cube.setCoords([121.5317, 25.03919, 0]);
+            cube.rotateY(Math.PI / 4);
+            return cube;
+        }
+
+        function createLine() {
+            //畫線
+            var lineOptions = {
+                geometry: [[121.5317, 25.0392, 1], [121.5317, 25.0392, 60]],
+                color: "white",
+                width: 2
+            }
+            let lineMesh = tb.line(lineOptions);
+            return lineMesh;
+        }
+
+        function createTest() {
+            // 創建紅色三角錐
+            var redGeometry = new THREE.ConeGeometry(1, 2, 3); // 半徑為1，高度為2，底面分段數為3
+            var redMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // 顏色為紅色
+            var redCone = new THREE.Mesh(redGeometry, redMaterial);
+            // redCone.position.set(0, 0, 0); // 將紅色三角錐移至 x 軸上
+
+            // 創建黃色三角錐
+            var yellowGeometry = new THREE.ConeGeometry(1, 2, 3); // 半徑為1，高度為2，底面分段數為3
+            var yellowMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // 顏色為黃色
+            var yellowCone = new THREE.Mesh(yellowGeometry, yellowMaterial);
+            yellowCone.position.set(0, 0, 0); // 將黃色三角錐移至 x 軸上
+
+            yellowCone.rotateX(Math.PI / 4);
+            yellowCone.position.z = -1;
+
+
+            var cube = new THREE.Group();
+            cube.add(redCone);
+            cube.add(yellowCone);
+
+            var mesh3D = tb.Object3D({ obj: cube, units: 'meters' });
+            mesh3D.setCoords([121.5317, 25.03919, 20]);
+            var cube = new THREE.Group();
+            cube.add(redCone);
+            cube.add(redEdges);
+            cube.add(yellowCone);
+            cube.add(yellowEdges);
+            cube.add(textMesh);
+
+            var mesh3D = tb.Object3D({ obj: cube, units: 'meters' });
+            var newCoord = calculateNewCoordinates(25.03919, 121.5317, radius, -90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, radius / 2 * 1.38, 180)
+            mesh3D.setCoords([newCoord2.lon, newCoord2.lat, 0]);
+            return mesh3D;
+        }
+
+        function makeObject3DStartPointToCenter(myObject3D) {
+            var objectCenter = myObject3D.center;
+            myObject3D.position.x = objectCenter.x;
+            myObject3D.position.y = objectCenter.y;
+            myObject3D.position.z = objectCenter.z;
+        }
+
+        function createText(font) {
+            var radius = 3.6;
+            var height = 4;
+            var textGeometry = new THREE.TextGeometry("Hello Three.js", {
+                font: font,
+                size: 1, // 文字大小
+                height: 0.2, // 文字厚度
+            });
+
+            textGeometry.computeBoundingBox();
+
+            var textMaterial = new THREE.MeshBasicMaterial({ color: '#fff' });
+            var textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+            var mesh3D = tb.Object3D({ obj: textMesh, units: 'meters' });
+            mesh3D.rotateX(Math.PI / 2);
+            mesh3D.rotateY(Math.PI);
+
+            rx = mesh3D.bottomRight.x;
+            lx = mesh3D.bottomLeft.x;
+            w = (lx - rx) / 2;
+
+            var newCoord = calculateNewCoordinates(25.03919, 121.5317, w, 90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, 2.5, 180)
+            mesh3D.setCoords([newCoord2.lon, newCoord2.lat, 7]);
+
+            return mesh3D;
+        }
+
+        function createTest2() {
+            var radius = 3.6;
+            var height = 4;
+            // 創建紅色三角錐
+            var redGeometry = new THREE.CylinderGeometry(0, radius, height, 4, 1)
+            // var redMaterial = new THREE.MeshNormalMaterial(); // 顏色為紅色
+            var redMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // 顏色為紅色
+            var redCone = new THREE.Mesh(redGeometry, redMaterial);
+            // redCone.position.set(0, 0, 0); // 將紅色三角錐移至 x 軸上
+            redCone.rotateX(Math.PI / 2);
+
+            var redEdgesGeometry = new THREE.EdgesGeometry(redGeometry); // 创建立方体的边线几何体
+            var redEdgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 创建线条材质
+            var redEdges = new THREE.LineSegments(redEdgesGeometry, redEdgesMaterial); // 创建线条对象
+            redEdges.rotateX(Math.PI / 2); // 将线条对象放置到与立方体相同的位置
+
+            // 創建黃色三角錐
+            var yellowGeometry = new THREE.CylinderGeometry(0, radius, height, 4, 1)
+            // var yellowMaterial = new THREE.MeshNormalMaterial(); // 顏色為黃色
+            var yellowMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // 顏色為黃色
+            var yellowCone = new THREE.Mesh(yellowGeometry, yellowMaterial);
+            yellowCone.position.set(0, 0, -(height)); // 將黃色三角錐移至 x 軸上
+            yellowCone.rotateX(-(Math.PI / 2));
+
+            var yellowEdgesGeometry = new THREE.EdgesGeometry(yellowGeometry); // 创建立方体的边线几何体
+            var yellowEdgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 创建线条材质
+            var yellowEdges = new THREE.LineSegments(yellowEdgesGeometry, yellowEdgesMaterial); // 创建线条对象
+            yellowEdges.position.set(0, 0, -(height)); // 將黃色三角錐移至 x 軸上
+            yellowEdges.rotateX(-(Math.PI / 2)); // 将线条对象放置到与立方体相同的位置
+
+            var cube = new THREE.Group();
+            cube.add(redCone);
+            cube.add(redEdges);
+            cube.add(yellowCone);
+            cube.add(yellowEdges);
+
+            var mesh3D = tb.Object3D({ obj: cube, units: 'meters' });
+            var newCoord = calculateNewCoordinates(25.03919, 121.5317, radius, -90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, radius / 2 * 1.38, 180)
+            mesh3D.setCoords([newCoord2.lon, newCoord2.lat, 0]);
+
+            return mesh3D;
+        }
+
+        function calculateNewCoordinates(lat1, lon1, distance, angle) {
+            var R = 6371000; // 地球半径，单位：米
+            var d = distance / R; // angular distance in radians
+            var bearing = angle * (Math.PI / 180); // 将角度转换为弧度
+
+            var lat1Rad = lat1 * (Math.PI / 180);
+            var lon1Rad = lon1 * (Math.PI / 180);
+
+            var lat2Rad = Math.asin(Math.sin(lat1Rad) * Math.cos(d) + Math.cos(lat1Rad) * Math.sin(d) * Math.cos(bearing));
+            var lon2Rad = lon1Rad + Math.atan2(Math.sin(bearing) * Math.sin(d) * Math.cos(lat1Rad), Math.cos(d) - Math.sin(lat1Rad) * Math.sin(lat2Rad));
+
+            var lat2 = lat2Rad * (180 / Math.PI);
+            var lon2 = lon2Rad * (180 / Math.PI);
+
+            return { lat: lat2, lon: lon2 };
+        }
+
+        map.on('load', function () {
+            var loader = new THREE.FontLoader();
+            loader.load('https://cdn.rawgit.com/mrdoob/three.js/master/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+                map.addLayer({
+                    id: 'custom_layer',
+                    type: 'custom',
+                    renderingMode: '3d',
+                    onAdd: function (map, mbxContext) {
+                        window.tb = new Threebox(
+                            map,
+                            mbxContext,
+                            {
+                                defaultLights: true,
+                                enableSelectingObjects: true
+                            }
+                        );
+
+                        var sphere = tb.sphere({ color: 'red', material: 'MeshToonMaterial' })
+                            .setCoords(origin);
+
+                        // tb.add(createCube());
+
+                        tb.add(createLine());
+
+                        // tb.add(createSquareFromFaces());
+
+                        // tb.add(createGradientCapsule());
+                        tb.add(createSegmentCapsule());
+
+                        tb.add(createTest2());
+                        tb.add(createText(font));
+
+                    },
+                    render: function (gl, matrix) {
+                        tb.update();
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
