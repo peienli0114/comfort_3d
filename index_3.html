@@ -34,10 +34,11 @@
     <script>
         var capsuleHeight = 60;
         var centerCoord = [121.531, 25.041, 60];
+        var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#d1e5f0","#67a9cf","#2166ac"]
         mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbG1rNnRwbW4wOW5hMnFsOHA5NmFqbmplIn0.FAgoDYf2hkIJArmTirngDg';
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/piaopiaoen/cm4q57zbd006l01so5p61be1k',
+            style: 'mapbox://styles/piaopiaoen/cm9lcqqt400oq01spady47vc5',
             center: centerCoord,
             zoom: 17.5,
             pitch: 60,
@@ -80,49 +81,49 @@
 
         function getPMVColor(pmv) {
             if (pmv < -2.5) {
-                return "#2D3E42";
+                return colors[6];
             }
             if (pmv < -1.5 && pmv >= -2.5) {
-                return "#3C6665";
+                return colors[5];
             }
             if (pmv < -0.5 && pmv >= -1.5) {
-                return "#458E81";
+                return colors[4];
             }
             if (pmv < 0.5 && pmv >= -0.5) {
-                return "#6BAA44";
+                return colors[3];
             }
             if (pmv < 1.5 && pmv >= 0.5) {
-                return "#CCBA3D";
+                return colors[2];
             }
             if (pmv < 2.5 && pmv >= 1.5) {
-                return "#DD782B";
+                return colors[1];
             }
             if (pmv >= 2.5) {
-                return "#F0251B";
+                return colors[0];
             }
         }
 
         function getSubjectTempColor(sTemp) {
             if (sTemp < -2.5) {
-                return "#2D3E42";
+                return colors[6];
             }
             if (sTemp< -1.5 && sTemp >= -2.5) {
-                return "#3C6665";
+                return colors[5];
             }
             if (sTemp < -0.5 && sTemp >= -1.5) {
-                return "#458E81";
+                return colors[4];
             }
             if (sTemp < 0.5 && sTemp >= -0.5) {
-                return "#6BAA44";
+                return colors[3];
             }
             if (sTemp < 1.5 && sTemp >= 0.5) {
-                return "#CCBA3D";
+                return colors[2];
             }
             if (sTemp < 2.5 && sTemp >= 1.5) {
-                return "#DD782B";
+                return colors[1];
             }
             if (sTemp >= 2.5) {
-                return "#F0251B";
+                return colors[0];
             }
         }
 
@@ -169,6 +170,7 @@
         function createBackText(font, origin, text, type) {
             var radius = 3.6;
             var height = 4;
+            
             var textGeometry = new THREE.TextGeometry(text.toString(), {
                 font: font,
                 size: 1.6, // 文字大小
@@ -257,11 +259,11 @@
             cylinder2.rotateX(Math.PI / 2);
             cylinder2.position.z = -(bottomCylinderHeight/2+topCylinderHeight/2);
 
-            var cylinderGeometry3 = new THREE.CylinderGeometry(CylinderWitdth*1.02, CylinderWitdth*1.02, 0.5, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
+            var cylinderGeometry3 = new THREE.CylinderGeometry(CylinderWitdth*1.15, CylinderWitdth*1.08, 2, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
             var material3 = new THREE.MeshBasicMaterial({ 
                 color: "#FFFFFF", // 白色
                 transparent: true, // 啟用透明效果
-                opacity: 0.5 // 設定透明度為 50%
+                opacity: 0.9 // 設定透明度為 50%
             });
             var cylinder3 = new THREE.Mesh(cylinderGeometry3, material3);
             cylinder3.rotateX(Math.PI / 2);
@@ -391,7 +393,7 @@
                             );
                             for (var i = 0; i < data.length; i++) {
                                 
-                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], data[i]['heat_7-value'], data[i]['pmv'], data[i]['Integration (HH) R3']);
+                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['heat_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1)), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
                                 
                             }
 
