@@ -35,17 +35,20 @@
         var capsuleHeight = 60;
         var centerCoord = [121.531, 25.041, 60];
         var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#d1e5f0","#67a9cf","#2166ac"]
-        mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbG1rNnRwbW4wOW5hMnFsOHA5NmFqbmplIn0.FAgoDYf2hkIJArmTirngDg';
+        mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
+
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/piaopiaoen/cm9lcqqt400oq01spady47vc5',
+            style: 'mapbox://styles/piaopiaoen/cm9lnkacs00ps01speo5rhe34',
             center: centerCoord,
             zoom: 17.5,
             pitch: 60,
             antialias: true
         });
-
-        //基本+雙重編碼+便捷值
+        map.on('load', () => {
+        console.log('Loaded style:', map.getStyle());
+        });
+        //基本+雙重編碼+便捷值2222
 
 
         // 學長的'mapbox://styles/biabobo/clps3zka200dm01pxhwc0dnea' 
@@ -400,7 +403,9 @@
                         });
                     },
                     render: function (gl, matrix) {
-                        tb.update();
+                        if (typeof tb !== 'undefined') {
+                            tb.update();
+                        }
                     }
                 });
             });
