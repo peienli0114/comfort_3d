@@ -39,11 +39,13 @@
 
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/piaopiaoen/cm9lnkacs00ps01speo5rhe34',
+            style: 'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
             center: centerCoord,
             zoom: 17.5,
             pitch: 60,
-            antialias: true
+            antialias: true,
+            localIdeographFontFamily: 'Noto Sans CJK TC', // 支援中文的字體
+           language: 'zh-Hant' // 設置為繁體中文
         });
         map.on('load', () => {
         console.log('Loaded style:', map.getStyle());
@@ -262,7 +264,7 @@
             cylinder2.rotateX(Math.PI / 2);
             cylinder2.position.z = -(bottomCylinderHeight/2+topCylinderHeight/2);
 
-            var cylinderGeometry3 = new THREE.CylinderGeometry(CylinderWitdth*1.15, CylinderWitdth*1.08, 2, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
+            var cylinderGeometry3 = new THREE.CylinderGeometry(CylinderWitdth*1.05, CylinderWitdth*1.05, 1, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
             var material3 = new THREE.MeshBasicMaterial({ 
                 color: "#FFFFFF", // 白色
                 transparent: true, // 啟用透明效果
@@ -390,8 +392,9 @@
                                 map,
                                 mbxContext,
                                 {
-                                    defaultLights: true,
+                                    defaultLights: false,
                                     enableSelectingObjects: true
+                                    
                                 }
                             );
                             for (var i = 0; i < data.length; i++) {
