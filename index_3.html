@@ -34,16 +34,21 @@
     <script>
         var capsuleHeight = 60;
         var centerCoord = [121.531, 25.041, 60];
-        var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#d1e5f0","#67a9cf","#2166ac"]
+        // var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#d1e5f0","#67a9cf","#2166ac"]
+        // var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#BDD4DB","#67a9cf","#2166ac"]
+
         mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
 
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
+            
+            // style: 'mapbox://styles/mapbox/streets-v11',
+            style:'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
             center: centerCoord,
             zoom: 17.5,
             pitch: 60,
             antialias: true,
+
             localIdeographFontFamily: 'Noto Sans CJK TC', // 支援中文的字體
            language: 'zh-Hant' // 設置為繁體中文
         });
@@ -83,6 +88,26 @@
         //         link.click(); // 觸發下載
         //     })
         //     .catch(err => console.error('Error fetching style:', err));
+
+
+        const baseColors = [
+        "#b2182b", //  3 熱
+        "#ef8a62", //  2
+        "#fddbc7", //  1
+        "#ffffff", //  0
+        "#d1e5f0", // -1
+        "#67a9cf", // -2
+        "#2166ac"  // -3 冷
+        ];
+
+        // 2. 轉成線性空間 HEX（Three.js 內部用）
+        //    這一步只會在載入腳本時執行一次
+        const colors = baseColors.map(hex => {
+        // THREE.Color 會把字串當作 sRGB 讀進來
+        // convertSRGBToLinear() 後，再用 getHexString() 輸出線性空間的 24‑bit HEX
+        const linear = new THREE.Color(hex).convertSRGBToLinear();
+        return `#${linear.getHexString()}`;
+        });
 
         function getPMVColor(pmv) {
             if (pmv < -2.5) {
@@ -212,39 +237,39 @@
             return mesh3D;
         }
 
+        
+
+
+
+
         function createSegmentCapsule(origin, pmv, sTemp, integration) {
 
+            let radius = 2.5;
+            let widthSegments = 32;
+
             // 有雙邊碼 / 有雙變 
-            // let radius = 3;
-            // let widthSegments = 32;
-            // let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
-            // let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
-            // let CylinderWitdth=integration*radius
+            let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
+            let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
+            let CylinderWitdth=integration*radius
 
             // 有雙編碼 / 無雙變 
-            // let radius = 3;
-            // let widthSegments = 32;
             // let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
             // let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
             // let CylinderWitdth=radius
 
             
             // 無雙編碼 / 無雙變  
-            // let radius = 3;
-            // let widthSegments = 32;
             // let topCylinderHeight = radius*3 ;      
             // let bottomCylinderHeight = radius*3 ;  
             // let CylinderWitdth=radius
 
             // 無雙編碼 / 有雙變  
-            let radius = 3;
-            let widthSegments = 32;
-            let topCylinderHeight = radius*3 ;      
-            let bottomCylinderHeight = radius*3 ;  
-            let CylinderWitdth=integration*radius
+            // let topCylinderHeight = radius*3 ;      
+            // let bottomCylinderHeight = radius*3 ;  
+            // let CylinderWitdth=integration*radius
 
-            var materialTop = new THREE.MeshBasicMaterial({ color: getPMVColor(pmv) });
-            var materialBottom = new THREE.MeshBasicMaterial({ color: getSubjectTempColor(sTemp) });
+            var materialTop = new THREE.MeshBasicMaterial({ color: getPMVColor(pmv) ,transparent: false ,fog:false});
+            var materialBottom = new THREE.MeshBasicMaterial({ color: getSubjectTempColor(sTemp),transparent: false,fog: false});
 
             var upperGeometry = new THREE.SphereGeometry(CylinderWitdth, widthSegments, widthSegments / 2, 0, Math.PI); //radius : Float, widthSegments : Integer, heightSegments 
             var lowerGeometry = new THREE.SphereGeometry(CylinderWitdth, widthSegments, widthSegments / 2, Math.PI, Math.PI);
@@ -392,11 +417,20 @@
                                 map,
                                 mbxContext,
                                 {
-                                    defaultLights: false,
-                                    enableSelectingObjects: true
+                                    
+                                    defaultLights: false, // 禁用光源
+                                    enableSelectingObjects: true,
+                                    realSunlight: false, // 禁用真實陽光效果
+                                    gltfLoader: false // 禁用不必要的載入器
+                                    
                                     
                                 }
                             );
+
+                            var ambientLight = new THREE.AmbientLight(0xffffff, 2);
+                            tb.add(ambientLight);
+
+
                             for (var i = 0; i < data.length; i++) {
                                 
                                     createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['heat_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1)), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
