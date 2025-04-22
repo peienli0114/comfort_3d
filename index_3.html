@@ -52,9 +52,19 @@
             localIdeographFontFamily: 'Noto Sans CJK TC', // 支援中文的字體
            language: 'zh-Hant' // 設置為繁體中文
         });
-        map.on('load', () => {
-        console.log('Loaded style:', map.getStyle());
+
+
+        /* ★★★ 加入指北針 ★★★ */
+        const compassControl = new mapboxgl.NavigationControl({
+            showZoom: false,        // 不顯示 + / − 按鈕；如需就改為 true
+            visualizePitch: true    // 保留 pitch 指示
         });
+        map.addControl(compassControl, 'top-left'); // 可改 'top-right' 等位置
+        /* ★★★ 指北針結束 ★★★ */
+
+        // map.on('load', () => {
+        // console.log('Loaded style:', map.getStyle());
+        // });
         //基本+雙重編碼+便捷值2222
 
 
