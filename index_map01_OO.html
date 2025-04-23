@@ -42,6 +42,14 @@
     <div id='map' class='map'></div>
 
     <script>
+        const blockLabels = [
+        { block: 50,  text: 'A',   height: 75 },
+        { block: 4, text: 'B',   height: 75 },
+        { block: 103, text: 'C', height: 75 },
+        { block: 60, text: 'D', height: 75 }
+        ];
+
+
         var capsuleHeight = 60;
         var centerCoord = [121.5305, 25.04, 60];
 
@@ -181,6 +189,71 @@
                 return colors[0];
             }
         }
+
+        /** 建立一個 3D 文字，直接放到 Threebox */
+        function makeTopLabel(font, lon, lat, text, height) {
+            const geo = new THREE.TextGeometry(text, {
+                font: font,
+                size: 10,        // 文字大小（自行微調）
+                height: 0.3     // 厚度
+            });
+
+            // 修改文字顏色
+            const mat = new THREE.MeshBasicMaterial({ color: '#FFD700' }); // 金黃色
+            const mesh = new THREE.Mesh(geo, mat);
+
+            // 計算文字的寬度
+            geo.computeBoundingBox();
+            const textWidth = geo.boundingBox.max.x - geo.boundingBox.min.x;
+
+            // 增加光暈效果
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: '#FFD700', // 光暈顏色
+                transparent: true,
+                opacity: 0.5
+            });
+            const glowGeo = new THREE.TextGeometry(text, {
+                font: font,
+                size: 10.5,        // 光暈稍微大一點
+                height: 0.1       // 光暈厚度較薄
+            });
+            const glowMesh = new THREE.Mesh(glowGeo, glowMaterial);
+
+            // 計算光暈的寬度
+            glowGeo.computeBoundingBox();
+            const glowWidth = glowGeo.boundingBox.max.x - glowGeo.boundingBox.min.x;
+
+            /* ★ 讓文字站起來，且正面向鏡頭 ★ */
+            geo.center(); // 確保文字的幾何中心對齊
+            glowGeo.center(); // 確保光暈的幾何中心對齊
+            geo.rotateX(Math.PI / 2);
+            geo.rotateZ(Math.PI);
+            glowGeo.rotateX(Math.PI / 2);
+            glowGeo.rotateZ(Math.PI);
+
+            // 調整位置以補償寬度偏移
+            const offset = textWidth / 2;
+            const adjustedLon = calculateNewCoordinates(lat, lon, -offset, 90).lon;
+
+            const obj3d = tb.Object3D({ obj: new THREE.Group().add(glowMesh, mesh), units: 'meters' });
+            obj3d.setCoords([adjustedLon, lat, height]);
+            tb.add(obj3d);
+        }
+
+        /** 把 blockLabels 迴圈跑一遍，逐一加文字 */
+        function addAllLabels(font, data) {
+        blockLabels.forEach(item => {
+            // 檢查 JSON 裡是否有這個 Block
+            const hit = data.find(d => Number(d.Block) === item.block);   // JSON 欄位 "Block" 參考&#8203;:contentReference[oaicite:0]{index=0}&#8203;:contentReference[oaicite:1]{index=1}
+            if (hit) {
+            makeTopLabel(font, hit.lon, hit.lat, item.text, item.height);
+            } else {
+            console.warn('找不到 Block =', item.block);
+            }
+        });
+        }
+
+
 
         function createText(font, origin, text, type) {
             var radius = 3.6;
@@ -450,6 +523,7 @@
                                     createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['heat_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1)), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
                                 
                             }
+                            addAllLabels(font, data);
 
                         });
                     },
@@ -461,6 +535,8 @@
                 });
             });
         });
+        
+    
     </script>
 
 </body>
