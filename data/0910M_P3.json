@@ -1,6 +1,11 @@
 [
     {
-        "﻿location": 1,
+        "﻿no": 1,
+        "start_lon": 121.5299,
+        "start_lat": 25.043106,
+        "end_lon": 121.5307,
+        "end_lat": 25.042894,
+        "location": 1,
         "pmv": 2.01,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -33,7 +38,12 @@
         "Relativised Entropy R3": 1.2942394
     },
     {
-        "﻿location": 2,
+        "﻿no": 2,
+        "start_lon": 121.5307,
+        "start_lat": 25.042894,
+        "end_lon": 121.5321,
+        "end_lat": 25.042587,
+        "location": 2,
         "pmv": 1.92,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -66,7 +76,12 @@
         "Relativised Entropy R3": 1.0911623
     },
     {
-        "﻿location": 3,
+        "﻿no": 3,
+        "start_lon": 121.5321,
+        "start_lat": 25.042587,
+        "end_lon": 121.5323,
+        "end_lat": 25.042443,
+        "location": 3,
         "pmv": 1.826666667,
         "heat_13-value": -0.166666667,
         "heat_7-value": -0.333333333,
@@ -99,7 +114,12 @@
         "Relativised Entropy R3": 1.0911623
     },
     {
-        "﻿location": 4,
+        "﻿no": 4,
+        "start_lon": 121.5323,
+        "start_lat": 25.042443,
+        "end_lon": 121.5328,
+        "end_lat": 25.042313,
+        "location": 4,
         "pmv": 1.703333333,
         "heat_13-value": -0.5,
         "heat_7-value": -1.333333333,
@@ -132,7 +152,12 @@
         "Relativised Entropy R3": 1.2942394
     },
     {
-        "﻿location": 5,
+        "﻿no": 5,
+        "start_lon": 121.5298,
+        "start_lat": 25.042611,
+        "end_lon": 121.5306,
+        "end_lat": 25.042403,
+        "location": 5,
         "pmv": 2.12,
         "heat_13-value": 0,
         "heat_7-value": -1,
@@ -165,7 +190,12 @@
         "Relativised Entropy R3": 1.3539122
     },
     {
-        "﻿location": 6,
+        "﻿no": 6,
+        "start_lon": 121.5306,
+        "start_lat": 25.042403,
+        "end_lon": 121.5319,
+        "end_lat": 25.042051,
+        "location": 6,
         "pmv": 2.21,
         "heat_13-value": 0,
         "heat_7-value": -1,
@@ -198,7 +228,12 @@
         "Relativised Entropy R3": 1.7962018
     },
     {
-        "﻿location": 7,
+        "﻿no": 7,
+        "start_lon": 121.5297,
+        "start_lat": 25.042171,
+        "end_lon": 121.5305,
+        "end_lat": 25.041992,
+        "location": 7,
         "pmv": 2.4,
         "heat_13-value": 0,
         "heat_7-value": -1,
@@ -231,7 +266,12 @@
         "Relativised Entropy R3": 1.7692264
     },
     {
-        "﻿location": 8,
+        "﻿no": 8,
+        "start_lon": 121.5305,
+        "start_lat": 25.041992,
+        "end_lon": 121.5317,
+        "end_lat": 25.041706,
+        "location": 8,
         "pmv": 2.12,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -264,7 +304,12 @@
         "Relativised Entropy R3": 1.8221259
     },
     {
-        "﻿location": 9,
+        "﻿no": 9,
+        "start_lon": 121.5317,
+        "start_lat": 25.041706,
+        "end_lon": 121.5322,
+        "end_lat": 25.041697,
+        "location": 9,
         "pmv": 1.786666667,
         "heat_13-value": -0.666666667,
         "heat_7-value": -1.666666667,
@@ -297,7 +342,12 @@
         "Relativised Entropy R3": 1.8866836
     },
     {
-        "﻿location": 10,
+        "﻿no": 10,
+        "start_lon": 121.5322,
+        "start_lat": 25.04157,
+        "end_lon": 121.5328,
+        "end_lat": 25.041577,
+        "location": 10,
         "pmv": 2.02,
         "heat_13-value": 0.5,
         "heat_7-value": 0.333333333,
@@ -330,7 +380,12 @@
         "Relativised Entropy R3": 1.5487748
     },
     {
-        "﻿location": 11,
+        "﻿no": 11,
+        "start_lon": 121.5296,
+        "start_lat": 25.041803,
+        "end_lon": 121.5304,
+        "end_lat": 25.041611,
+        "location": 11,
         "pmv": 2.31,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -363,7 +418,12 @@
         "Relativised Entropy R3": 1.8724692
     },
     {
-        "﻿location": 12,
+        "﻿no": 12,
+        "start_lon": 121.5304,
+        "start_lat": 25.041611,
+        "end_lon": 121.5315,
+        "end_lat": 25.041345,
+        "location": 12,
         "pmv": 2.45,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -396,7 +456,12 @@
         "Relativised Entropy R3": 1.9013594
     },
     {
-        "﻿location": 13,
+        "﻿no": 13,
+        "start_lon": 121.5315,
+        "start_lat": 25.041345,
+        "end_lon": 121.5322,
+        "end_lat": 25.041366,
+        "location": 13,
         "pmv": 2.256666667,
         "heat_13-value": 0.333333333,
         "heat_7-value": -0.333333333,
@@ -429,7 +494,12 @@
         "Relativised Entropy R3": 1.9073327
     },
     {
-        "﻿location": 14,
+        "﻿no": 14,
+        "start_lon": 121.5322,
+        "start_lat": 25.041366,
+        "end_lon": 121.5328,
+        "end_lat": 25.041312,
+        "location": 14,
         "pmv": 1.806666667,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -462,7 +532,12 @@
         "Relativised Entropy R3": 1.6838834
     },
     {
-        "﻿location": 15,
+        "﻿no": 15,
+        "start_lon": 121.5294,
+        "start_lat": 25.041358,
+        "end_lon": 121.5302,
+        "end_lat": 25.041147,
+        "location": 15,
         "pmv": 2.68,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -495,7 +570,12 @@
         "Relativised Entropy R3": 1.9312027
     },
     {
-        "﻿location": 16,
+        "﻿no": 16,
+        "start_lon": 121.5302,
+        "start_lat": 25.041147,
+        "end_lon": 121.5316,
+        "end_lat": 25.04082,
+        "location": 16,
         "pmv": 2.21,
         "heat_13-value": 0.5,
         "heat_7-value": 1,
@@ -528,7 +608,12 @@
         "Relativised Entropy R3": 1.838447
     },
     {
-        "﻿location": 17,
+        "﻿no": 17,
+        "start_lon": 121.5316,
+        "start_lat": 25.04082,
+        "end_lon": 121.532,
+        "end_lat": 25.040817,
+        "location": 17,
         "pmv": 2,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -561,7 +646,12 @@
         "Relativised Entropy R3": 1.7939149
     },
     {
-        "﻿location": 18,
+        "﻿no": 18,
+        "start_lon": 121.532,
+        "start_lat": 25.040817,
+        "end_lon": 121.5328,
+        "end_lat": 25.040766,
+        "location": 18,
         "pmv": 1.916666667,
         "heat_13-value": -0.333333333,
         "heat_7-value": -1.333333333,
@@ -594,7 +684,12 @@
         "Relativised Entropy R3": 1.6808264
     },
     {
-        "﻿location": 19.1,
+        "﻿no": 19.1,
+        "start_lon": 121.532,
+        "start_lat": 25.040817,
+        "end_lon": 121.532,
+        "end_lat": 25.040622,
+        "location": 19.1,
         "pmv": 2.19,
         "heat_13-value": 1.5,
         "heat_7-value": 1,
@@ -627,7 +722,12 @@
         "Relativised Entropy R3": 1.4379251
     },
     {
-        "﻿location": 19.2,
+        "﻿no": 19.2,
+        "start_lon": 121.532,
+        "start_lat": 25.040622,
+        "end_lon": 121.5328,
+        "end_lat": 25.040597,
+        "location": 19.2,
         "pmv": 1.99,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -660,7 +760,12 @@
         "Relativised Entropy R3": 1.4379251
     },
     {
-        "﻿location": 20,
+        "﻿no": 20,
+        "start_lon": 121.5293,
+        "start_lat": 25.040805,
+        "end_lon": 121.5301,
+        "end_lat": 25.040654,
+        "location": 20,
         "pmv": 2.4,
         "heat_13-value": 1,
         "heat_7-value": 1,
@@ -693,7 +798,12 @@
         "Relativised Entropy R3": 1.9389621
     },
     {
-        "﻿location": 21,
+        "﻿no": 21,
+        "start_lon": 121.5301,
+        "start_lat": 25.040654,
+        "end_lon": 121.5311,
+        "end_lat": 25.040374,
+        "location": 21,
         "pmv": 2.21,
         "heat_13-value": -0.5,
         "heat_7-value": 0,
@@ -726,7 +836,12 @@
         "Relativised Entropy R3": 1.7704366
     },
     {
-        "﻿location": 22,
+        "﻿no": 22,
+        "start_lon": 121.5311,
+        "start_lat": 25.040374,
+        "end_lon": 121.5316,
+        "end_lat": 25.040273,
+        "location": 22,
         "pmv": 1.98,
         "heat_13-value": -1,
         "heat_7-value": 0,
@@ -759,7 +874,12 @@
         "Relativised Entropy R3": 1.7704366
     },
     {
-        "﻿location": 23,
+        "﻿no": 23,
+        "start_lon": 121.5316,
+        "start_lat": 25.040273,
+        "end_lon": 121.5323,
+        "end_lat": 25.040192,
+        "location": 23,
         "pmv": 1.96,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -792,7 +912,12 @@
         "Relativised Entropy R3": 1.6421758
     },
     {
-        "﻿location": 24,
+        "﻿no": 24,
+        "start_lon": 121.5323,
+        "start_lat": 25.040192,
+        "end_lon": 121.5328,
+        "end_lat": 25.040182,
+        "location": 24,
         "pmv": 2.58,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -825,7 +950,12 @@
         "Relativised Entropy R3": 1.8379663
     },
     {
-        "﻿location": 25,
+        "﻿no": 25,
+        "start_lon": 121.5291,
+        "start_lat": 25.040315,
+        "end_lon": 121.5299,
+        "end_lat": 25.040122,
+        "location": 25,
         "pmv": 2.86,
         "heat_13-value": -0.333333333,
         "heat_7-value": -0.666666667,
@@ -858,7 +988,12 @@
         "Relativised Entropy R3": 1.7137352
     },
     {
-        "﻿location": 26,
+        "﻿no": 26,
+        "start_lon": 121.5299,
+        "start_lat": 25.040122,
+        "end_lon": 121.5309,
+        "end_lat": 25.039863,
+        "location": 26,
         "pmv": 2.51,
         "heat_13-value": 1,
         "heat_7-value": 1,
@@ -891,7 +1026,12 @@
         "Relativised Entropy R3": 1.7904537
     },
     {
-        "﻿location": 27,
+        "﻿no": 27,
+        "start_lon": 121.531,
+        "start_lat": 25.040124,
+        "end_lon": 121.5316,
+        "end_lat": 25.04002,
+        "location": 27,
         "pmv": 2.55,
         "heat_13-value": 0.5,
         "heat_7-value": 0,
@@ -924,7 +1064,12 @@
         "Relativised Entropy R3": 1.7962018
     },
     {
-        "﻿location": 28,
+        "﻿no": 28,
+        "start_lon": 121.529,
+        "start_lat": 25.039863,
+        "end_lon": 121.5298,
+        "end_lat": 25.039661,
+        "location": 28,
         "pmv": 2.985,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -957,7 +1102,12 @@
         "Relativised Entropy R3": 1.7064047
     },
     {
-        "﻿location": 29,
+        "﻿no": 29,
+        "start_lon": 121.5298,
+        "start_lat": 25.039661,
+        "end_lon": 121.5303,
+        "end_lat": 25.039519,
+        "location": 29,
         "pmv": 2.643333333,
         "heat_13-value": -0.5,
         "heat_7-value": -0.666666667,
@@ -990,7 +1140,12 @@
         "Relativised Entropy R3": 1.7988788
     },
     {
-        "﻿location": 30,
+        "﻿no": 30,
+        "start_lon": 121.5303,
+        "start_lat": 25.039519,
+        "end_lon": 121.531,
+        "end_lat": 25.03965,
+        "location": 30,
         "pmv": 2.14,
         "heat_13-value": 0.5,
         "heat_7-value": 0,
@@ -1023,7 +1178,12 @@
         "Relativised Entropy R3": 1.6082193
     },
     {
-        "﻿location": 31,
+        "﻿no": 31,
+        "start_lon": 121.531,
+        "start_lat": 25.03965,
+        "end_lon": 121.5317,
+        "end_lat": 25.039828,
+        "location": 31,
         "pmv": 2.31,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1056,7 +1216,12 @@
         "Relativised Entropy R3": 1.7376446
     },
     {
-        "﻿location": 32,
+        "﻿no": 32,
+        "start_lon": 121.5317,
+        "start_lat": 25.039828,
+        "end_lon": 121.5322,
+        "end_lat": 25.03992,
+        "location": 32,
         "pmv": 2.19,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1089,7 +1254,12 @@
         "Relativised Entropy R3": 1.7367692
     },
     {
-        "﻿location": 33,
+        "﻿no": 33,
+        "start_lon": 121.5289,
+        "start_lat": 25.039456,
+        "end_lon": 121.5294,
+        "end_lat": 25.039328,
+        "location": 33,
         "pmv": 2.725,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -1122,7 +1292,12 @@
         "Relativised Entropy R3": 1.5093437
     },
     {
-        "﻿location": 34,
+        "﻿no": 34,
+        "start_lon": 121.5287,
+        "start_lat": 25.039037,
+        "end_lon": 121.5294,
+        "end_lat": 25.038978,
+        "location": 34,
         "pmv": 3.1325,
         "heat_13-value": 0,
         "heat_7-value": -0.5,
@@ -1155,7 +1330,12 @@
         "Relativised Entropy R3": 1.5425942
     },
     {
-        "﻿location": 35,
+        "﻿no": 35,
+        "start_lon": 121.5294,
+        "start_lat": 25.038978,
+        "end_lon": 121.5304,
+        "end_lat": 25.039163,
+        "location": 35,
         "pmv": 2.91,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1188,7 +1368,12 @@
         "Relativised Entropy R3": 1.8288469
     },
     {
-        "﻿location": 36,
+        "﻿no": 36,
+        "start_lon": 121.5304,
+        "start_lat": 25.039163,
+        "end_lon": 121.5311,
+        "end_lat": 25.039303,
+        "location": 36,
         "pmv": 2.835,
         "heat_13-value": 0.5,
         "heat_7-value": 1,
@@ -1221,7 +1406,12 @@
         "Relativised Entropy R3": 1.7898073
     },
     {
-        "﻿location": 37.1,
+        "﻿no": 37.1,
+        "start_lon": 121.5311,
+        "start_lat": 25.039303,
+        "end_lon": 121.5314834,
+        "end_lat": 25.0393927,
+        "location": 37.1,
         "pmv": 2.75,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -1254,7 +1444,12 @@
         "Relativised Entropy R3": 1.5747191
     },
     {
-        "﻿location": 37.2,
+        "﻿no": 37.2,
+        "start_lon": 121.5314834,
+        "start_lat": 25.0393927,
+        "end_lon": 121.5315373,
+        "end_lat": 25.03909327,
+        "location": 37.2,
         "pmv": 2.725,
         "heat_13-value": 0,
         "heat_7-value": -1,
@@ -1287,7 +1482,12 @@
         "Relativised Entropy R3": 1.5747191
     },
     {
-        "﻿location": 38,
+        "﻿no": 38,
+        "start_lon": 121.5316863,
+        "start_lat": 25.03908303,
+        "end_lon": 121.5322021,
+        "end_lat": 25.03904884,
+        "location": 38,
         "pmv": 2.755,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -1320,7 +1520,12 @@
         "Relativised Entropy R3": 1.8471928
     },
     {
-        "﻿location": 39,
+        "﻿no": 39,
+        "start_lon": 121.5322,
+        "start_lat": 25.039049,
+        "end_lon": 121.5327,
+        "end_lat": 25.039053,
+        "location": 39,
         "pmv": 1.78,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1353,7 +1558,12 @@
         "Relativised Entropy R3": 1.7433239
     },
     {
-        "﻿location": 40,
+        "﻿no": 40,
+        "start_lon": 121.5286,
+        "start_lat": 25.038665,
+        "end_lon": 121.5287,
+        "end_lat": 25.038636,
+        "location": 40,
         "pmv": 3.69,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1386,7 +1596,12 @@
         "Relativised Entropy R3": 1.4395257
     },
     {
-        "﻿location": 41,
+        "﻿no": 41,
+        "start_lon": 121.5287,
+        "start_lat": 25.038636,
+        "end_lon": 121.5295,
+        "end_lat": 25.038631,
+        "location": 41,
         "pmv": 2.86,
         "heat_13-value": 0,
         "heat_7-value": -1,
@@ -1419,7 +1634,12 @@
         "Relativised Entropy R3": 1.229477
     },
     {
-        "﻿location": 42,
+        "﻿no": 42,
+        "start_lon": 121.5307,
+        "start_lat": 25.038862,
+        "end_lon": 121.5311,
+        "end_lat": 25.038909,
+        "location": 42,
         "pmv": 3.085,
         "heat_13-value": 0.5,
         "heat_7-value": 0,
@@ -1452,7 +1672,12 @@
         "Relativised Entropy R3": 1.5144788
     },
     {
-        "﻿location": 43,
+        "﻿no": 43,
+        "start_lon": 121.5311,
+        "start_lat": 25.038909,
+        "end_lon": 121.5316,
+        "end_lat": 25.038872,
+        "location": 43,
         "pmv": 2.905,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1485,7 +1710,12 @@
         "Relativised Entropy R3": 1.4474835
     },
     {
-        "﻿location": 44,
+        "﻿no": 44,
+        "start_lon": 121.5288,
+        "start_lat": 25.038391,
+        "end_lon": 121.5284,
+        "end_lat": 25.038411,
+        "location": 44,
         "pmv": 3.265,
         "heat_13-value": 0.75,
         "heat_7-value": 0.5,
@@ -1518,7 +1748,12 @@
         "Relativised Entropy R3": 1.3539122
     },
     {
-        "﻿location": 45,
+        "﻿no": 45,
+        "start_lon": 121.5294,
+        "start_lat": 25.038387,
+        "end_lon": 121.5288,
+        "end_lat": 25.038391,
+        "location": 45,
         "pmv": 3.235,
         "heat_13-value": 0.5,
         "heat_7-value": 0,
@@ -1551,7 +1786,12 @@
         "Relativised Entropy R3": 1.6838834
     },
     {
-        "﻿location": 46,
+        "﻿no": 46,
+        "start_lon": 121.5306,
+        "start_lat": 25.038354,
+        "end_lon": 121.5294,
+        "end_lat": 25.038387,
+        "location": 46,
         "pmv": 3.245,
         "heat_13-value": 0.5,
         "heat_7-value": -1,
@@ -1584,7 +1824,12 @@
         "Relativised Entropy R3": 1.664782
     },
     {
-        "﻿location": 47,
+        "﻿no": 47,
+        "start_lon": 121.5316239,
+        "start_lat": 25.03832873,
+        "end_lon": 121.5306,
+        "end_lat": 25.038354,
+        "location": 47,
         "pmv": 3.025,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1617,7 +1862,12 @@
         "Relativised Entropy R3": 1.5837113
     },
     {
-        "﻿location": 48,
+        "﻿no": 48,
+        "start_lon": 121.5319,
+        "start_lat": 25.038317,
+        "end_lon": 121.5316239,
+        "end_lat": 25.03832873,
+        "location": 48,
         "pmv": 1.64,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -1650,7 +1900,12 @@
         "Relativised Entropy R3": 1.7939149
     },
     {
-        "﻿location": 49,
+        "﻿no": 49,
+        "start_lon": 121.5327,
+        "start_lat": 25.038268,
+        "end_lon": 121.5319,
+        "end_lat": 25.038317,
+        "location": 49,
         "pmv": 1.78,
         "heat_13-value": 0.5,
         "heat_7-value": 0,
@@ -1683,7 +1938,12 @@
         "Relativised Entropy R3": 1.6335514
     },
     {
-        "﻿location": 50,
+        "﻿no": 50,
+        "start_lon": 121.5298,
+        "start_lat": 25.042611,
+        "end_lon": 121.5299,
+        "end_lat": 25.043106,
+        "location": 50,
         "pmv": 3.06,
         "heat_13-value": 1,
         "heat_7-value": 2,
@@ -1716,7 +1976,12 @@
         "Relativised Entropy R3": 1.5687064
     },
     {
-        "﻿location": 51,
+        "﻿no": 51,
+        "start_lon": 121.5297,
+        "start_lat": 25.042171,
+        "end_lon": 121.5298,
+        "end_lat": 25.042611,
+        "location": 51,
         "pmv": 3.2,
         "heat_13-value": 1,
         "heat_7-value": 1,
@@ -1749,7 +2014,12 @@
         "Relativised Entropy R3": 1.5276568
     },
     {
-        "﻿location": 52,
+        "﻿no": 52,
+        "start_lon": 121.5296,
+        "start_lat": 25.041803,
+        "end_lon": 121.5297,
+        "end_lat": 25.042171,
+        "location": 52,
         "pmv": 3.56,
         "heat_13-value": 1.5,
         "heat_7-value": 2,
@@ -1782,7 +2052,12 @@
         "Relativised Entropy R3": 1.7898073
     },
     {
-        "﻿location": 53,
+        "﻿no": 53,
+        "start_lon": 121.5294,
+        "start_lat": 25.041358,
+        "end_lon": 121.5296,
+        "end_lat": 25.041803,
+        "location": 53,
         "pmv": 3.34,
         "heat_13-value": 1.5,
         "heat_7-value": 2,
@@ -1815,7 +2090,12 @@
         "Relativised Entropy R3": 1.9013594
     },
     {
-        "﻿location": 54,
+        "﻿no": 54,
+        "start_lon": 121.5293,
+        "start_lat": 25.040805,
+        "end_lon": 121.5294,
+        "end_lat": 25.041358,
+        "location": 54,
         "pmv": 2.37,
         "heat_13-value": -0.5,
         "heat_7-value": 1,
@@ -1848,7 +2128,12 @@
         "Relativised Entropy R3": 1.8471928
     },
     {
-        "﻿location": 55,
+        "﻿no": 55,
+        "start_lon": 121.5291,
+        "start_lat": 25.040315,
+        "end_lon": 121.5293,
+        "end_lat": 25.040805,
+        "location": 55,
         "pmv": 2.88,
         "heat_13-value": 2,
         "heat_7-value": 2,
@@ -1881,7 +2166,12 @@
         "Relativised Entropy R3": 1.7904537
     },
     {
-        "﻿location": 56,
+        "﻿no": 56,
+        "start_lon": 121.529,
+        "start_lat": 25.039863,
+        "end_lon": 121.5291,
+        "end_lat": 25.040315,
+        "location": 56,
         "pmv": 3.54,
         "heat_13-value": 1,
         "heat_7-value": 0,
@@ -1914,7 +2204,12 @@
         "Relativised Entropy R3": 1.7988788
     },
     {
-        "﻿location": 57,
+        "﻿no": 57,
+        "start_lon": 121.5289,
+        "start_lat": 25.039456,
+        "end_lon": 121.529,
+        "end_lat": 25.039863,
+        "location": 57,
         "pmv": 3.28,
         "heat_13-value": 1,
         "heat_7-value": 1,
@@ -1947,7 +2242,12 @@
         "Relativised Entropy R3": 1.7176391
     },
     {
-        "﻿location": 58,
+        "﻿no": 58,
+        "start_lon": 121.5287,
+        "start_lat": 25.039037,
+        "end_lon": 121.5289,
+        "end_lat": 25.039456,
+        "location": 58,
         "pmv": 3.365,
         "heat_13-value": 0.5,
         "heat_7-value": 0,
@@ -1980,7 +2280,12 @@
         "Relativised Entropy R3": 1.6335514
     },
     {
-        "﻿location": 59,
+        "﻿no": 59,
+        "start_lon": 121.5286,
+        "start_lat": 25.038665,
+        "end_lon": 121.5287,
+        "end_lat": 25.039037,
+        "location": 59,
         "pmv": 3.405,
         "heat_13-value": 0.5,
         "heat_7-value": 1,
@@ -2013,7 +2318,12 @@
         "Relativised Entropy R3": 1.650112
     },
     {
-        "﻿location": 60,
+        "﻿no": 60,
+        "start_lon": 121.5284,
+        "start_lat": 25.038411,
+        "end_lon": 121.5286,
+        "end_lat": 25.038665,
+        "location": 60,
         "pmv": 3.725,
         "heat_13-value": 1.5,
         "heat_7-value": 2,
@@ -2046,7 +2356,12 @@
         "Relativised Entropy R3": 1.4444195
     },
     {
-        "﻿location": 61,
+        "﻿no": 61,
+        "start_lon": 121.5287,
+        "start_lat": 25.038636,
+        "end_lon": 121.5288,
+        "end_lat": 25.038391,
+        "location": 61,
         "pmv": 2.84,
         "heat_13-value": -0.5,
         "heat_7-value": -2,
@@ -2079,7 +2394,12 @@
         "Relativised Entropy R3": 1.4395257
     },
     {
-        "﻿location": 62,
+        "﻿no": 62,
+        "start_lon": 121.5307,
+        "start_lat": 25.042894,
+        "end_lon": 121.5306,
+        "end_lat": 25.042403,
+        "location": 62,
         "pmv": 2.165,
         "heat_13-value": -0.25,
         "heat_7-value": -0.5,
@@ -2112,7 +2432,12 @@
         "Relativised Entropy R3": 1.7367692
     },
     {
-        "﻿location": 63,
+        "﻿no": 63,
+        "start_lon": 121.5306,
+        "start_lat": 25.042403,
+        "end_lon": 121.5305,
+        "end_lat": 25.041992,
+        "location": 63,
         "pmv": 2.16,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -2145,7 +2470,12 @@
         "Relativised Entropy R3": 1.5290827
     },
     {
-        "﻿location": 64,
+        "﻿no": 64,
+        "start_lon": 121.5305,
+        "start_lat": 25.041992,
+        "end_lon": 121.5304,
+        "end_lat": 25.041611,
+        "location": 64,
         "pmv": 2.45,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2178,7 +2508,12 @@
         "Relativised Entropy R3": 1.898284
     },
     {
-        "﻿location": 65,
+        "﻿no": 65,
+        "start_lon": 121.5304,
+        "start_lat": 25.041611,
+        "end_lon": 121.5302,
+        "end_lat": 25.041147,
+        "location": 65,
         "pmv": 3.25,
         "heat_13-value": 1,
         "heat_7-value": 2,
@@ -2211,7 +2546,12 @@
         "Relativised Entropy R3": 1.7904537
     },
     {
-        "﻿location": 66,
+        "﻿no": 66,
+        "start_lon": 121.5302,
+        "start_lat": 25.041147,
+        "end_lon": 121.5301,
+        "end_lat": 25.040654,
+        "location": 66,
         "pmv": 2.28,
         "heat_13-value": 1,
         "heat_7-value": 0,
@@ -2244,7 +2584,12 @@
         "Relativised Entropy R3": 1.9928683
     },
     {
-        "﻿location": 67,
+        "﻿no": 67,
+        "start_lon": 121.5301,
+        "start_lat": 25.040654,
+        "end_lon": 121.5299,
+        "end_lat": 25.040122,
+        "location": 67,
         "pmv": 2.41,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2277,7 +2622,12 @@
         "Relativised Entropy R3": 2.046488
     },
     {
-        "﻿location": 68,
+        "﻿no": 68,
+        "start_lon": 121.5299,
+        "start_lat": 25.040122,
+        "end_lon": 121.5298,
+        "end_lat": 25.039661,
+        "location": 68,
         "pmv": 2.68,
         "heat_13-value": -0.666666667,
         "heat_7-value": -1,
@@ -2310,7 +2660,12 @@
         "Relativised Entropy R3": 1.526921
     },
     {
-        "﻿location": 69.1,
+        "﻿no": 69.1,
+        "start_lon": 121.5298,
+        "start_lat": 25.039661,
+        "end_lon": 121.5297,
+        "end_lat": 25.03939,
+        "location": 69.1,
         "pmv": 2.84,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2343,7 +2698,12 @@
         "Relativised Entropy R3": 1.8866836
     },
     {
-        "﻿location": 69.2,
+        "﻿no": 69.2,
+        "start_lon": 121.5297,
+        "start_lat": 25.03939,
+        "end_lon": 121.5294,
+        "end_lat": 25.039328,
+        "location": 69.2,
         "pmv": 2.74,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -2376,7 +2736,12 @@
         "Relativised Entropy R3": 1.8866836
     },
     {
-        "﻿location": 70,
+        "﻿no": 70,
+        "start_lon": 121.5294,
+        "start_lat": 25.039328,
+        "end_lon": 121.5294,
+        "end_lat": 25.038978,
+        "location": 70,
         "pmv": 2.855,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -2409,7 +2774,12 @@
         "Relativised Entropy R3": 1.650112
     },
     {
-        "﻿location": 71,
+        "﻿no": 71,
+        "start_lon": 121.5294,
+        "start_lat": 25.038978,
+        "end_lon": 121.5295,
+        "end_lat": 25.038631,
+        "location": 71,
         "pmv": 3.105,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2442,7 +2812,12 @@
         "Relativised Entropy R3": 1.4444195
     },
     {
-        "﻿location": 72,
+        "﻿no": 72,
+        "start_lon": 121.5295,
+        "start_lat": 25.038631,
+        "end_lon": 121.5294,
+        "end_lat": 25.038387,
+        "location": 72,
         "pmv": 3,
         "heat_13-value": -0.25,
         "heat_7-value": -1,
@@ -2475,7 +2850,12 @@
         "Relativised Entropy R3": 1.650112
     },
     {
-        "﻿location": 73,
+        "﻿no": 73,
+        "start_lon": 121.5303,
+        "start_lat": 25.039519,
+        "end_lon": 121.5304,
+        "end_lat": 25.039163,
+        "location": 73,
         "pmv": 2.94,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -2508,7 +2888,12 @@
         "Relativised Entropy R3": 1.7917442
     },
     {
-        "﻿location": 74,
+        "﻿no": 74,
+        "start_lon": 121.5304,
+        "start_lat": 25.039163,
+        "end_lon": 121.5307,
+        "end_lat": 25.038862,
+        "location": 74,
         "pmv": 2.78,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -2541,7 +2926,12 @@
         "Relativised Entropy R3": 1.5970589
     },
     {
-        "﻿location": 75,
+        "﻿no": 75,
+        "start_lon": 121.5307,
+        "start_lat": 25.038862,
+        "end_lon": 121.5306,
+        "end_lat": 25.038354,
+        "location": 75,
         "pmv": 2.855,
         "heat_13-value": -0.5,
         "heat_7-value": -2,
@@ -2574,7 +2964,12 @@
         "Relativised Entropy R3": 1.5170654
     },
     {
-        "﻿location": 76,
+        "﻿no": 76,
+        "start_lon": 121.5311,
+        "start_lat": 25.040374,
+        "end_lon": 121.531,
+        "end_lat": 25.040124,
+        "location": 76,
         "pmv": 2.49,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2607,7 +3002,12 @@
         "Relativised Entropy R3": 1.7547162
     },
     {
-        "﻿location": 77,
+        "﻿no": 77,
+        "start_lon": 121.531,
+        "start_lat": 25.040124,
+        "end_lon": 121.5309,
+        "end_lat": 25.039863,
+        "location": 77,
         "pmv": 2.49,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2640,7 +3040,12 @@
         "Relativised Entropy R3": 1.8209543
     },
     {
-        "﻿location": 78,
+        "﻿no": 78,
+        "start_lon": 121.5309,
+        "start_lat": 25.039863,
+        "end_lon": 121.531,
+        "end_lat": 25.03965,
+        "location": 78,
         "pmv": 2.24,
         "heat_13-value": 0.5,
         "heat_7-value": 1,
@@ -2673,7 +3078,12 @@
         "Relativised Entropy R3": 1.9952292
     },
     {
-        "﻿location": 79,
+        "﻿no": 79,
+        "start_lon": 121.531,
+        "start_lat": 25.03965,
+        "end_lon": 121.5311,
+        "end_lat": 25.039303,
+        "location": 79,
         "pmv": 3.085,
         "heat_13-value": 0,
         "heat_7-value": 1,
@@ -2706,7 +3116,12 @@
         "Relativised Entropy R3": 1.8516062
     },
     {
-        "﻿location": 80,
+        "﻿no": 80,
+        "start_lon": 121.5311,
+        "start_lat": 25.039303,
+        "end_lon": 121.5311,
+        "end_lat": 25.038909,
+        "location": 80,
         "pmv": 3.0775,
         "heat_13-value": 0.5,
         "heat_7-value": 0.5,
@@ -2739,7 +3154,12 @@
         "Relativised Entropy R3": 1.723595
     },
     {
-        "﻿location": 81,
+        "﻿no": 81,
+        "start_lon": 121.5321,
+        "start_lat": 25.042587,
+        "end_lon": 121.5319,
+        "end_lat": 25.042051,
+        "location": 81,
         "pmv": 1.86,
         "heat_13-value": -0.5,
         "heat_7-value": -2,
@@ -2772,7 +3192,12 @@
         "Relativised Entropy R3": 1.748399
     },
     {
-        "﻿location": 82,
+        "﻿no": 82,
+        "start_lon": 121.5319,
+        "start_lat": 25.042051,
+        "end_lon": 121.5317,
+        "end_lat": 25.041706,
+        "location": 82,
         "pmv": 2.25,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2805,7 +3230,12 @@
         "Relativised Entropy R3": 1.650112
     },
     {
-        "﻿location": 83,
+        "﻿no": 83,
+        "start_lon": 121.5317,
+        "start_lat": 25.041706,
+        "end_lon": 121.5315,
+        "end_lat": 25.041345,
+        "location": 83,
         "pmv": 2.056666667,
         "heat_13-value": 0.666666667,
         "heat_7-value": 1.333333333,
@@ -2838,7 +3268,12 @@
         "Relativised Entropy R3": 1.567723
     },
     {
-        "﻿location": 84,
+        "﻿no": 84,
+        "start_lon": 121.5315,
+        "start_lat": 25.041345,
+        "end_lon": 121.5315,
+        "end_lat": 25.041001,
+        "location": 84,
         "pmv": 2.086666667,
         "heat_13-value": 0,
         "heat_7-value": -0.666666667,
@@ -2871,7 +3306,12 @@
         "Relativised Entropy R3": 1.7719444
     },
     {
-        "﻿location": 85,
+        "﻿no": 85,
+        "start_lon": 121.5316,
+        "start_lat": 25.04082,
+        "end_lon": 121.5316,
+        "end_lat": 25.040273,
+        "location": 85,
         "pmv": 2.07,
         "heat_13-value": -1,
         "heat_7-value": -1,
@@ -2904,7 +3344,12 @@
         "Relativised Entropy R3": 1.8841705
     },
     {
-        "﻿location": 86,
+        "﻿no": 86,
+        "start_lon": 121.5316,
+        "start_lat": 25.040273,
+        "end_lon": 121.5316,
+        "end_lat": 25.04002,
+        "location": 86,
         "pmv": 2.16,
         "heat_13-value": -0.5,
         "heat_7-value": 0,
@@ -2937,7 +3382,12 @@
         "Relativised Entropy R3": 1.7643235
     },
     {
-        "﻿location": 87,
+        "﻿no": 87,
+        "start_lon": 121.5316,
+        "start_lat": 25.04002,
+        "end_lon": 121.5317,
+        "end_lat": 25.039828,
+        "location": 87,
         "pmv": 2.3,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -2970,7 +3420,12 @@
         "Relativised Entropy R3": 1.8379663
     },
     {
-        "﻿location": 88,
+        "﻿no": 88,
+        "start_lon": 121.5316,
+        "start_lat": 25.039797,
+        "end_lon": 121.5317,
+        "end_lat": 25.039083,
+        "location": 88,
         "pmv": 1.8,
         "heat_13-value": -1.5,
         "heat_7-value": -2,
@@ -3003,7 +3458,12 @@
         "Relativised Entropy R3": 1.7367692
     },
     {
-        "﻿location": 89,
+        "﻿no": 89,
+        "start_lon": 121.5317,
+        "start_lat": 25.039083,
+        "end_lon": 121.5316,
+        "end_lat": 25.038872,
+        "location": 89,
         "pmv": 1.63,
         "heat_13-value": -1,
         "heat_7-value": -1,
@@ -3036,7 +3496,12 @@
         "Relativised Entropy R3": 1.6029594
     },
     {
-        "﻿location": 90,
+        "﻿no": 90,
+        "start_lon": 121.5316,
+        "start_lat": 25.038872,
+        "end_lon": 121.5316239,
+        "end_lat": 25.03832873,
+        "location": 90,
         "pmv": 2.403333333,
         "heat_13-value": -1,
         "heat_7-value": -1.333333333,
@@ -3069,7 +3534,12 @@
         "Relativised Entropy R3": 1.5332038
     },
     {
-        "﻿location": 91,
+        "﻿no": 91,
+        "start_lon": 121.5323,
+        "start_lat": 25.042443,
+        "end_lon": 121.5322,
+        "end_lat": 25.041697,
+        "location": 91,
         "pmv": 2.213333333,
         "heat_13-value": 0.666666667,
         "heat_7-value": 0.666666667,
@@ -3102,7 +3572,12 @@
         "Relativised Entropy R3": 1.4379251
     },
     {
-        "﻿location": 92,
+        "﻿no": 92,
+        "start_lon": 121.5322,
+        "start_lat": 25.041697,
+        "end_lon": 121.5322,
+        "end_lat": 25.04157,
+        "location": 92,
         "pmv": 1.976666667,
         "heat_13-value": 0.083333333,
         "heat_7-value": -0.333333333,
@@ -3135,7 +3610,12 @@
         "Relativised Entropy R3": 1.3434201
     },
     {
-        "﻿location": 93,
+        "﻿no": 93,
+        "start_lon": 121.5322,
+        "start_lat": 25.04157,
+        "end_lon": 121.5322,
+        "end_lat": 25.041366,
+        "location": 93,
         "pmv": 1.793333333,
         "heat_13-value": -0.333333333,
         "heat_7-value": -0.666666667,
@@ -3168,7 +3648,12 @@
         "Relativised Entropy R3": 1.5487748
     },
     {
-        "﻿location": 94,
+        "﻿no": 94,
+        "start_lon": 121.5323,
+        "start_lat": 25.040192,
+        "end_lon": 121.5322,
+        "end_lat": 25.03992,
+        "location": 94,
         "pmv": 2.413333333,
         "heat_13-value": 0.333333333,
         "heat_7-value": 0.666666667,
@@ -3201,7 +3686,12 @@
         "Relativised Entropy R3": 1.7176391
     },
     {
-        "﻿location": 95,
+        "﻿no": 95,
+        "start_lon": 121.5322,
+        "start_lat": 25.03992,
+        "end_lon": 121.5322,
+        "end_lat": 25.039049,
+        "location": 95,
         "pmv": 2.555,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -3234,7 +3724,12 @@
         "Relativised Entropy R3": 1.8866836
     },
     {
-        "﻿location": 96.1,
+        "﻿no": 96.1,
+        "start_lon": 121.5322,
+        "start_lat": 25.039049,
+        "end_lon": 121.5321,
+        "end_lat": 25.038735,
+        "location": 96.1,
         "pmv": 1.63,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -3267,7 +3762,12 @@
         "Relativised Entropy R3": 1.5276568
     },
     {
-        "﻿location": 96.2,
+        "﻿no": 96.2,
+        "start_lon": 121.5321,
+        "start_lat": 25.038735,
+        "end_lon": 121.5319,
+        "end_lat": 25.038671,
+        "location": 96.2,
         "pmv": 1.47,
         "heat_13-value": -1,
         "heat_7-value": -1,
@@ -3300,7 +3800,12 @@
         "Relativised Entropy R3": 1.5276568
     },
     {
-        "﻿location": 96.3,
+        "﻿no": 96.3,
+        "start_lon": 121.5319,
+        "start_lat": 25.038671,
+        "end_lon": 121.5319,
+        "end_lat": 25.038317,
+        "location": 96.3,
         "pmv": 1.38,
         "heat_13-value": -0.5,
         "heat_7-value": -1,
@@ -3333,7 +3838,12 @@
         "Relativised Entropy R3": 1.5276568
     },
     {
-        "﻿location": 97,
+        "﻿no": 97,
+        "start_lon": 121.5328,
+        "start_lat": 25.042313,
+        "end_lon": 121.5328,
+        "end_lat": 25.041577,
+        "location": 97,
         "pmv": 1.51,
         "heat_13-value": -1.5,
         "heat_7-value": -1,
@@ -3366,7 +3876,12 @@
         "Relativised Entropy R3": 1.5687064
     },
     {
-        "﻿location": 98,
+        "﻿no": 98,
+        "start_lon": 121.5328,
+        "start_lat": 25.041577,
+        "end_lon": 121.5328,
+        "end_lat": 25.041312,
+        "location": 98,
         "pmv": 1.7275,
         "heat_13-value": -0.375,
         "heat_7-value": -0.5,
@@ -3399,7 +3914,12 @@
         "Relativised Entropy R3": 1.6082193
     },
     {
-        "﻿location": 99,
+        "﻿no": 99,
+        "start_lon": 121.5328,
+        "start_lat": 25.041312,
+        "end_lon": 121.5328,
+        "end_lat": 25.041024,
+        "location": 99,
         "pmv": 1.78,
         "heat_13-value": -0.142857143,
         "heat_7-value": -1,
@@ -3432,7 +3952,12 @@
         "Relativised Entropy R3": 1.5743387
     },
     {
-        "﻿location": 100,
+        "﻿no": 100,
+        "start_lon": 121.5328,
+        "start_lat": 25.040766,
+        "end_lon": 121.5328,
+        "end_lat": 25.040597,
+        "location": 100,
         "pmv": 1.99,
         "heat_13-value": 0,
         "heat_7-value": 0,
@@ -3465,7 +3990,12 @@
         "Relativised Entropy R3": 1.6335514
     },
     {
-        "﻿location": 102,
+        "﻿no": 102,
+        "start_lon": 121.5328,
+        "start_lat": 25.040182,
+        "end_lon": 121.5327,
+        "end_lat": 25.039053,
+        "location": 102,
         "pmv": 2.6,
         "heat_13-value": 0,
         "heat_7-value": -1,
@@ -3498,7 +4028,12 @@
         "Relativised Entropy R3": 1.5425942
     },
     {
-        "﻿location": 103,
+        "﻿no": 103,
+        "start_lon": 121.5327,
+        "start_lat": 25.039053,
+        "end_lon": 121.5327,
+        "end_lat": 25.038268,
+        "location": 103,
         "pmv": 2.193333333,
         "heat_13-value": -0.5,
         "heat_7-value": -1.666666667,
@@ -3531,7 +4066,12 @@
         "Relativised Entropy R3": 1.5487748
     },
     {
-        "﻿location": 104,
+        "﻿no": 104,
+        "start_lon": 121.5315,
+        "start_lat": 25.041001,
+        "end_lon": 121.5328,
+        "end_lat": 25.041024,
+        "location": 104,
         "pmv": 2.403333333,
         "heat_13-value": 0,
         "heat_7-value": -0.666666667,
@@ -3564,7 +4104,12 @@
         "Relativised Entropy R3": 1.87628
     },
     {
-        "﻿location": 105,
+        "﻿no": 105,
+        "start_lon": 121.5315,
+        "start_lat": 25.041001,
+        "end_lon": 121.5316,
+        "end_lat": 25.04082,
+        "location": 105,
         "pmv": 1.983333333,
         "heat_13-value": 0.166666667,
         "heat_7-value": 0.333333333,
@@ -3597,7 +4142,12 @@
         "Relativised Entropy R3": 1.9028199
     },
     {
-        "﻿location": 106,
+        "﻿no": 106,
+        "start_lon": 121.5328,
+        "start_lat": 25.041024,
+        "end_lon": 121.5328,
+        "end_lat": 25.040766,
+        "location": 106,
         "pmv": 1.9825,
         "heat_13-value": 0.625,
         "heat_7-value": 0.75,

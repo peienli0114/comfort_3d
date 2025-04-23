@@ -28,6 +28,14 @@
             width: 100%;
             height: 100%;
         }
+
+        
+        .mapboxgl-ctrl-reset {
+        font-size: 18px; line-height: 28px;    /* 文字置中 */
+        }
+        .mapboxgl-ctrl-reset::before {
+        content: "↺";               /* 也可換成 ⌂ 或 🏠 等 */
+        }
     </style>
 </head>
 
@@ -37,6 +45,13 @@
     <script>
         /* ----------- 地圖基本設定 ----------- */
         const centerCoord = [121.531, 25.041, 60];   // [lon, lat, elev]
+        
+        const initialView = {                      //  ← 依你的設定改值
+            center: [121.5305, 25.04],               // 只有經緯度即可
+            zoom:   17.5,
+            pitch:  60,
+            bearing: 0
+            };
         mapboxgl.accessToken =
             "pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg";
 
@@ -50,6 +65,55 @@
             localIdeographFontFamily: "Noto Sans CJK TC",
             language: "zh-Hant"
         });
+        /* ★★★ 加入指北針 ★★★ */
+        const compassControl = new mapboxgl.NavigationControl({
+            showZoom: false,        // 不顯示 + / − 按鈕；如需就改為 true
+            visualizePitch: true    // 保留 pitch 指示
+        });
+        map.addControl(compassControl, 'top-left'); // 可改 'top-right' 等位置
+        /* ★★★ 指北針結束 ★★★ */
+
+
+     class ResetViewControl {
+        onAdd(map) {
+            this._map = map;
+
+            // 外層容器（保留 Mapbox 樣式）
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+
+            // 按鈕
+            const btn = document.createElement('button');
+            btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-reset';
+            btn.type  = 'button';
+            btn.title = '回到初始視角';
+
+            // 點擊事件：飛回初始參數
+            btn.onclick = () => {
+            map.flyTo({
+                center:  initialView.center,
+                zoom:    initialView.zoom,
+                pitch:   initialView.pitch,
+                bearing: initialView.bearing,
+                duration: 1000            // 動畫 1 秒
+            });
+            };
+
+            wrapper.appendChild(btn);
+            this._btn = btn;
+            return wrapper;
+        }
+        
+        onRemove() {
+            this._btn.parentNode.remove();
+            this._map = undefined;
+        }
+    }
+        map.addControl(new ResetViewControl(), 'top-left');
+
+
+
+
 
         /* ----------- 顏色對照 ----------- */
         const baseColors = [
@@ -91,15 +155,13 @@
                     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
                     tb.add(ambientLight);
 
-                    /* 讀取 CSV */
-                    $.get("./data/9_10月下午均數值_加空間_加線段.csv", csvText => {
-                        const rows = $.csv.toObjects(csvText);
-
-                        rows.forEach(row => {
+                    /* 讀取 */
+                    $.getJSON("./data/0910M_P3.json", data => {
+                        data.forEach(row => {
                             const start = [
                                 parseFloat(row.start_lon),
                                 parseFloat(row.start_lat),
-                                1          // z = 1 m，略高於地面
+                                1
                             ];
                             const end = [
                                 parseFloat(row.end_lon),
@@ -111,11 +173,12 @@
                             const line = tb.line({
                                 geometry: [start, end],
                                 color: getPMVColor(pmv),
-                                width: 10              // 線寬（meters）
-                            }); 
+                                width: 10
+                            });
                             tb.add(line);
                         });
                     });
+
                 },
                 render: () => {
                     if (typeof tb !== "undefined") tb.update();

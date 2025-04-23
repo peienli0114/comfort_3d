@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>08M_P2_OO</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.min.js"
+        type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.css" rel="stylesheet">
+    <script src="js/three-js-capsule-geometry.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .mapboxgl-ctrl-reset {
+        font-size: 18px; line-height: 28px;    /* 文字置中 */
+        }
+        .mapboxgl-ctrl-reset::before {
+        content: "↺";               /* 也可換成 ⌂ 或 🏠 等 */
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <div id='map' class='map'></div>
+
+    <script>
+        var capsuleHeight = 60;
+        var centerCoord = [121.5305, 25.04, 60];
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
+
+        const initialView = {                      //  ← 依你的設定改值
+            center: [121.5305, 25.04],               // 只有經緯度即可
+            zoom:   17,
+            pitch:  60,
+            bearing: 0
+            };
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            
+            // style: 'mapbox://styles/mapbox/streets-v11',
+            style:'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
+            center: centerCoord,
+            zoom: 17,
+            pitch: 60,
+            antialias: true,
+
+            localIdeographFontFamily: 'Noto Sans CJK TC', // 支援中文的字體
+           language: 'zh-Hant' // 設置為繁體中文
+        });
+
+
+        /* ★★★ 加入指北針 ★★★ */
+        const compassControl = new mapboxgl.NavigationControl({
+            showZoom: false,        // 不顯示 + / − 按鈕；如需就改為 true
+            visualizePitch: true    // 保留 pitch 指示
+        });
+        map.addControl(compassControl, 'top-left'); // 可改 'top-right' 等位置
+        /* ★★★ 指北針結束 ★★★ */
+
+
+     class ResetViewControl {
+        onAdd(map) {
+            this._map = map;
+
+            // 外層容器（保留 Mapbox 樣式）
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+
+            // 按鈕
+            const btn = document.createElement('button');
+            btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-reset';
+            btn.type  = 'button';
+            btn.title = '回到初始視角';
+
+            // 點擊事件：飛回初始參數
+            btn.onclick = () => {
+            map.flyTo({
+                center:  initialView.center,
+                zoom:    initialView.zoom,
+                pitch:   initialView.pitch,
+                bearing: initialView.bearing,
+                duration: 1000            // 動畫 1 秒
+            });
+            };
+
+            wrapper.appendChild(btn);
+            this._btn = btn;
+            return wrapper;
+        }
+        
+        onRemove() {
+            this._btn.parentNode.remove();
+            this._map = undefined;
+        }
+    }
+        map.addControl(new ResetViewControl(), 'top-left');
+       
+        const baseColors = [
+        "#b2182b", //  3 熱
+        "#ef8a62", //  2
+        "#fddbc7", //  1
+        "#ffffff", //  0
+        "#d1e5f0", // -1
+        "#67a9cf", // -2
+        "#2166ac"  // -3 冷
+        ];
+
+        // 2. 轉成線性空間 HEX（Three.js 內部用）
+        //    這一步只會在載入腳本時執行一次
+        const colors = baseColors.map(hex => {
+        // THREE.Color 會把字串當作 sRGB 讀進來
+        // convertSRGBToLinear() 後，再用 getHexString() 輸出線性空間的 24‑bit HEX
+        const linear = new THREE.Color(hex).convertSRGBToLinear();
+        return `#${linear.getHexString()}`;
+        });
+
+        function getPMVColor(pmv) {
+            if (pmv < -2.5) {
+                return colors[6];
+            }
+            if (pmv < -1.5 && pmv >= -2.5) {
+                return colors[5];
+            }
+            if (pmv < -0.5 && pmv >= -1.5) {
+                return colors[4];
+            }
+            if (pmv < 0.5 && pmv >= -0.5) {
+                return colors[3];
+            }
+            if (pmv < 1.5 && pmv >= 0.5) {
+                return colors[2];
+            }
+            if (pmv < 2.5 && pmv >= 1.5) {
+                return colors[1];
+            }
+            if (pmv >= 2.5) {
+                return colors[0];
+            }
+        }
+
+        function getSubjectTempColor(sTemp) {
+            if (sTemp < -2.5) {
+                return colors[6];
+            }
+            if (sTemp< -1.5 && sTemp >= -2.5) {
+                return colors[5];
+            }
+            if (sTemp < -0.5 && sTemp >= -1.5) {
+                return colors[4];
+            }
+            if (sTemp < 0.5 && sTemp >= -0.5) {
+                return colors[3];
+            }
+            if (sTemp < 1.5 && sTemp >= 0.5) {
+                return colors[2];
+            }
+            if (sTemp < 2.5 && sTemp >= 1.5) {
+                return colors[1];
+            }
+            if (sTemp >= 2.5) {
+                return colors[0];
+            }
+        }
+
+        function createText(font, origin, text, type) {
+            var radius = 3.6;
+            var height = 4;
+            var textGeometry = new THREE.TextGeometry(text.toString(), {
+                font: font,
+                size: 1.5, // 文字大小
+                height: 0.2, // 文字厚度
+            });
+
+            var textMaterial = new THREE.MeshBasicMaterial({ color: '#fff' });
+            var textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+            var edgesGeometry = new THREE.EdgesGeometry(textGeometry);
+            var edgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+            var edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+
+            var cube = new THREE.Group();
+            cube.add(textMesh);
+            cube.add(edges);
+
+            var mesh3D = tb.Object3D({ obj: cube, units: 'meters' });
+            mesh3D.rotateX(Math.PI / 2);
+            mesh3D.rotateY(Math.PI);
+            
+            rx = mesh3D.bottomRight.x;
+            lx = mesh3D.bottomLeft.x;
+            w = (lx - rx) / 2;
+
+            var newCoord = calculateNewCoordinates(origin[1], origin[0], w, 90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, 2.5, 180)
+            height = 7;
+            if(type == 2) {
+                height = 3;
+            }
+            mesh3D.setCoords([newCoord2.lon, newCoord2.lat, height]);
+            
+
+            return mesh3D;
+        }
+
+        function createBackText(font, origin, text, type) {
+            var radius = 3.6;
+            var height = 4;
+            
+            var textGeometry = new THREE.TextGeometry(text.toString(), {
+                font: font,
+                size: 1.6, // 文字大小
+                height: 0.2, // 文字厚度
+            });
+
+            var textMaterial = new THREE.MeshBasicMaterial({ color: '#fff' });
+            var textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+            var edgesGeometry = new THREE.EdgesGeometry(textGeometry);
+            var edgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+            var edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+
+            var cube = new THREE.Group();
+            cube.add(textMesh);
+            cube.add(edges);
+
+            var mesh3D = tb.Object3D({ obj: cube, units: 'meters' });
+            mesh3D.rotateX(Math.PI / 2);
+            // mesh3D.rotateY(Math.PI);
+            
+            rx = mesh3D.bottomRight.x;
+            lx = mesh3D.bottomLeft.x;
+            w = (lx - rx) / 2;
+
+            var newCoord = calculateNewCoordinates(origin[1], origin[0], w, -90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, -2.5, 180)
+            height = 7;
+            if(type == 2) {
+                height = 3;
+            }
+            mesh3D.setCoords([newCoord2.lon, newCoord2.lat, height]);
+
+            return mesh3D;
+        }
+
+        
+
+
+
+
+        function createSegmentCapsule(origin, pmv, sTemp, integration) {
+
+            let radius = 2.5;
+            let widthSegments = 32;
+
+            // 有雙邊碼 / 有雙變 
+            let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
+            let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
+            let CylinderWitdth=integration*radius
+
+            // 有雙編碼 / 無雙變 
+            // let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
+            // let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
+            // let CylinderWitdth=radius
+
+            
+            // 無雙編碼 / 無雙變  
+            // let topCylinderHeight = radius*3 ;      
+            // let bottomCylinderHeight = radius*3 ;  
+            // let CylinderWitdth=radius
+
+            // 無雙編碼 / 有雙變  
+            // let topCylinderHeight = radius*3 ;      
+            // let bottomCylinderHeight = radius*3 ;  
+            // let CylinderWitdth=integration*radius
+
+            var materialTop = new THREE.MeshBasicMaterial({ color: getPMVColor(pmv) ,transparent: false ,fog:false});
+            var materialBottom = new THREE.MeshBasicMaterial({ color: getSubjectTempColor(sTemp),transparent: false,fog: false});
+
+            var upperGeometry = new THREE.SphereGeometry(CylinderWitdth, widthSegments, widthSegments / 2, 0, Math.PI); //radius : Float, widthSegments : Integer, heightSegments 
+            var lowerGeometry = new THREE.SphereGeometry(CylinderWitdth, widthSegments, widthSegments / 2, Math.PI, Math.PI);
+
+            var upperMesh = new THREE.Mesh(upperGeometry, materialTop);
+            var lowerMesh = new THREE.Mesh(lowerGeometry, materialBottom);
+            upperMesh.position.z = topCylinderHeight/2;
+            lowerMesh.position.z = -(bottomCylinderHeight+topCylinderHeight/2);
+
+            var cylinderGeometry1 = new THREE.CylinderGeometry(CylinderWitdth, CylinderWitdth,topCylinderHeight, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
+            var cylinder1 = new THREE.Mesh(cylinderGeometry1, materialTop);
+            cylinder1.rotateX(Math.PI / 2);
+            // cylinder1.position.z = -(topCylinderHeight / 2);
+
+            var cylinderGeometry2 = new THREE.CylinderGeometry(CylinderWitdth, CylinderWitdth, bottomCylinderHeight, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
+            var cylinder2 = new THREE.Mesh(cylinderGeometry2, materialBottom);
+            cylinder2.rotateX(Math.PI / 2);
+            cylinder2.position.z = -(bottomCylinderHeight/2+topCylinderHeight/2);
+
+            var cylinderGeometry3 = new THREE.CylinderGeometry(CylinderWitdth*1.05, CylinderWitdth*1.05, 1, widthSegments); // 參數分別為頂部半徑、底部半徑、高度和圓柱體分段數
+            var material3 = new THREE.MeshBasicMaterial({ 
+                color: "#FFFFFF", // 白色
+                transparent: true, // 啟用透明效果
+                opacity: 0.9 // 設定透明度為 50%
+            });
+            var cylinder3 = new THREE.Mesh(cylinderGeometry3, material3);
+            cylinder3.rotateX(Math.PI / 2);
+            cylinder3.position.z = -(topCylinderHeight/2);
+
+            var capsule = new THREE.Group();
+            // capsule.add(upperMesh);
+            capsule.add(cylinder1);
+            capsule.add(cylinder2);
+            capsule.add(cylinder3);
+            // capsule.add(lowerMesh);
+
+            // var totalHeight = topCylinderHeight;
+            // var centerOffsetZ =topCylinderHeight/2;
+            capsule.position.z =bottomCylinderHeight+radius;
+
+            var newCoord = calculateNewCoordinates(origin[1], origin[0], CylinderWitdth, -90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, CylinderWitdth , 180)
+
+            var capsule3D = tb.Object3D({ obj: capsule, units: 'meters' });
+            capsule3D.setCoords([newCoord2.lon, newCoord2.lat, capsuleHeight]);
+
+            return capsule3D;
+        }
+
+
+
+        function createLine(origin) {
+            //畫線
+            var startPoint = origin.concat(1);
+            var endPoint = origin.concat(capsuleHeight);
+            var lineOptions = {
+                geometry: [startPoint, endPoint],
+                color: "white",
+                width: 1
+            }
+            let lineMesh = tb.line(lineOptions);
+            return lineMesh;
+        }
+
+        function createGroundSquare(origin, pmv, sTemp) {
+            var radius = 3.6;
+            var height = 4;
+            // 創建紅色三角錐
+            var redGeometry = new THREE.CylinderGeometry(0, radius, height, 4, 1)
+            var redMaterial = new THREE.MeshBasicMaterial({ color: getPMVColor(pmv) });
+            var redCone = new THREE.Mesh(redGeometry, redMaterial);
+            redCone.rotateX(Math.PI / 2);
+
+            // 創建黃色三角錐
+            var yellowGeometry = new THREE.CylinderGeometry(0, radius, height, 4, 1)
+            var yellowMaterial = new THREE.MeshBasicMaterial({ color: getSubjectTempColor(sTemp) });
+            var yellowCone = new THREE.Mesh(yellowGeometry, yellowMaterial);
+            yellowCone.position.set(0, 0, -(height)); // 將三角錐移至 x 軸上
+            yellowCone.rotateX(-(Math.PI / 2));
+
+            var cube = new THREE.Group();
+            cube.add(redCone);
+            // cube.add(redEdges);
+            cube.add(yellowCone);
+            // cube.add(yellowEdges);
+
+            var mesh3D = tb.Object3D({ obj: cube, units: 'meters' });
+            var newCoord = calculateNewCoordinates(origin[1], origin[0], radius, -90)
+            var newCoord2 = calculateNewCoordinates(newCoord.lat, newCoord.lon, radius / 2 * 2, 180)
+            mesh3D.setCoords([newCoord2.lon, newCoord2.lat, 0]);
+
+            return mesh3D;
+        }
+
+        function calculateNewCoordinates(lat1, lon1, distance, angle) {
+            var R = 6371000; // 地球半徑，單位公尺
+            var d = distance / R; // angular distance in radians
+            var bearing = angle * (Math.PI / 180); //將角度轉為弧度
+
+            var lat1Rad = lat1 * (Math.PI / 180);
+            var lon1Rad = lon1 * (Math.PI / 180);
+
+            var lat2Rad = Math.asin(Math.sin(lat1Rad) * Math.cos(d) + Math.cos(lat1Rad) * Math.sin(d) * Math.cos(bearing));
+            var lon2Rad = lon1Rad + Math.atan2(Math.sin(bearing) * Math.sin(d) * Math.cos(lat1Rad), Math.cos(d) - Math.sin(lat1Rad) * Math.sin(lat2Rad));
+
+            var lat2 = lat2Rad * (180 / Math.PI);
+            var lon2 = lon2Rad * (180 / Math.PI);
+
+            return { lat: lat2, lon: lon2 };
+        }
+
+        function createACapsule(font, origin, pmv, sTemp,integration) {
+            var sphere = tb.sphere({ color: 'red', material: 'MeshToonMaterial' })
+                .setCoords(origin);
+            tb.add(createLine(origin));
+            tb.add(createSegmentCapsule(origin, pmv, sTemp,integration));
+            tb.add(createGroundSquare(origin, pmv, sTemp));
+            tb.add(createText(font, origin, pmv, 1));
+            tb.add(createText(font, origin, sTemp, 2));
+            tb.add(createBackText(font, origin, pmv, 1));
+            tb.add(createBackText(font, origin, sTemp, 2));
+        }
+
+        map.on('load', function () {
+            var loader = new THREE.FontLoader();
+            loader.load('https://cdn.rawgit.com/mrdoob/three.js/master/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+                map.addLayer({
+                    id: 'custom_layer',
+                    type: 'custom',
+                    renderingMode: '3d',
+                    onAdd: function (map, mbxContext) {
+                        $.getJSON("./data/08M_P2.json", function (data) {
+                            window.tb = new Threebox(
+                                map,
+                                mbxContext,
+                                {
+                                    
+                                    defaultLights: false, // 禁用光源
+                                    enableSelectingObjects: true,
+                                    realSunlight: false, // 禁用真實陽光效果
+                                    gltfLoader: false // 禁用不必要的載入器
+                                    
+                                    
+                                }
+                            );
+
+                            var ambientLight = new THREE.AmbientLight(0xffffff, 2);
+                            tb.add(ambientLight);
+
+
+                            for (var i = 0; i < data.length; i++) {
+                                
+                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['熱感受_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1)-0.5), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
+                                
+                            }
+
+                        });
+                    },
+                    render: function (gl, matrix) {
+                        if (typeof tb !== 'undefined') {
+                            tb.update();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

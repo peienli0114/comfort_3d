@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Mapbox + Three.js 3D Shape</title>
+    <title>0809M_P1_OO</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
@@ -25,19 +25,13 @@
             height: 100%;
         }
 
-        /* .mapboxgl-ctrl-reset {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 3 2 12h3v8h6v-5h2v5h6v-8h3z"/></svg>');
-            background-size: 60% 60%;
-            background-position: center;
-            background-repeat: no-repeat;
-            } */
-/* 替代：直接用文字 ↺ 當圖示（不用 SVG）*/
-.mapboxgl-ctrl-reset {
-  font-size: 18px; line-height: 28px;    /* 文字置中 */
-}
-.mapboxgl-ctrl-reset::before {
-  content: "↺";               /* 也可換成 ⌂ 或 🏠 等 */
-}
+
+        .mapboxgl-ctrl-reset {
+        font-size: 18px; line-height: 28px;    /* 文字置中 */
+        }
+        .mapboxgl-ctrl-reset::before {
+        content: "↺";               /* 也可換成 ⌂ 或 🏠 等 */
+        }
 
 
     </style>
@@ -50,8 +44,6 @@
     <script>
         var capsuleHeight = 60;
         var centerCoord = [121.5305, 25.04, 60];
-        // var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#d1e5f0","#67a9cf","#2166ac"]
-        // var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#BDD4DB","#67a9cf","#2166ac"]
 
         mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
 
@@ -62,8 +54,6 @@
             bearing: 0
             };
 
-        
-        
         var map = new mapboxgl.Map({
             container: 'map',
             
@@ -88,79 +78,43 @@
         /* ★★★ 指北針結束 ★★★ */
 
 
-        class ResetViewControl {
-  onAdd(map) {
-    this._map = map;
+     class ResetViewControl {
+        onAdd(map) {
+            this._map = map;
 
-    // 外層容器（保留 Mapbox 樣式）
-    const wrapper = document.createElement('div');
-    wrapper.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+            // 外層容器（保留 Mapbox 樣式）
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
 
-    // 按鈕
-    const btn = document.createElement('button');
-    btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-reset';
-    btn.type  = 'button';
-    btn.title = '回到初始視角';
+            // 按鈕
+            const btn = document.createElement('button');
+            btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-reset';
+            btn.type  = 'button';
+            btn.title = '回到初始視角';
 
-    // 點擊事件：飛回初始參數
-    btn.onclick = () => {
-      map.flyTo({
-        center:  initialView.center,
-        zoom:    initialView.zoom,
-        pitch:   initialView.pitch,
-        bearing: initialView.bearing,
-        duration: 1000            // 動畫 1 秒
-      });
-    };
+            // 點擊事件：飛回初始參數
+            btn.onclick = () => {
+            map.flyTo({
+                center:  initialView.center,
+                zoom:    initialView.zoom,
+                pitch:   initialView.pitch,
+                bearing: initialView.bearing,
+                duration: 1000            // 動畫 1 秒
+            });
+            };
 
-    wrapper.appendChild(btn);
-    this._btn = btn;
-    return wrapper;
-  }
-  onRemove() {
-    this._btn.parentNode.remove();
-    this._map = undefined;
-  }
-}
-map.addControl(new ResetViewControl(), 'top-left');
-        // map.on('load', () => {
-        // console.log('Loaded style:', map.getStyle());
-        // });
-        //基本+雙重編碼+便捷值2222
-
-
-        // 學長的'mapbox://styles/biabobo/clps3zka200dm01pxhwc0dnea' 
-        // 'pk.eyJ1IjoiYmlhYm9ibyIsImEiOiJjamVvejdlNXQxZnBuMndtdWhiZHRuaTNpIn0.PIS9wtUxm_rz_IzF2WFD1g';
-        // 我的mapbox://styles/piaopiaoen/cm4q57zbd006l01so5p61be1k
-        // pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbG1rNnRwbW4wOW5hMnFsOHA5NmFqbmplIn0.FAgoDYf2hkIJArmTirngDg
-        // fetch('https://api.mapbox.com/styles/v1/biabobo/clps3zka200dm01pxhwc0dnea?access_token=pk.eyJ1IjoiYmlhYm9ibyIsImEiOiJjamVvejdlNXQxZnBuMndtdWhiZHRuaTNpIn0.PIS9wtUxm_rz_IzF2WFD1g')
-        //     .then(response => response.json())
-        //     .then(style => {
-        //         console.log('Style JSON:', style); // 輸出完整樣式 JSON
-        //         console.log('Sources:', style.sources); // 輸出來源資料
-        //         console.log('Layers:', style.layers); // 輸出圖層資料
-        //     })
-        //     .catch(err => console.error('Error fetching style:', err));
-
-// 下載學長的地圖樣式
-        // fetch('https://api.mapbox.com/styles/v1/biabobo/clps3zka200dm01pxhwc0dnea?access_token=pk.eyJ1IjoiYmlhYm9ibyIsImEiOiJjamVvejdlNXQxZnBuMndtdWhiZHRuaTNpIn0.PIS9wtUxm_rz_IzF2WFD1g')
-        //     .then(response => response.json())
-        //     .then(style => {
-        //         // 將 JSON 轉為字串格式
-        //         const jsonString = JSON.stringify(style, null, 2);
-
-        //         // 建立 Blob 物件
-        //         const blob = new Blob([jsonString], { type: 'application/json' });
-
-        //         // 生成下載連結
-        //         const link = document.createElement('a');
-        //         link.href = URL.createObjectURL(blob);
-        //         link.download = 'map-style.json'; // 檔案名稱
-        //         link.click(); // 觸發下載
-        //     })
-        //     .catch(err => console.error('Error fetching style:', err));
-
-
+            wrapper.appendChild(btn);
+            this._btn = btn;
+            return wrapper;
+        }
+        
+        onRemove() {
+            this._btn.parentNode.remove();
+            this._map = undefined;
+        }
+    }
+        map.addControl(new ResetViewControl(), 'top-left');
+       
         const baseColors = [
         "#b2182b", //  3 熱
         "#ef8a62", //  2
@@ -414,23 +368,12 @@ map.addControl(new ResetViewControl(), 'top-left');
             var redCone = new THREE.Mesh(redGeometry, redMaterial);
             redCone.rotateX(Math.PI / 2);
 
-            // var redEdgesGeometry = new THREE.EdgesGeometry(redGeometry); // 创建立方体的边线几何体
-            // var redEdgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 创建线条材质
-            // var redEdges = new THREE.LineSegments(redEdgesGeometry, redEdgesMaterial); // 创建线条对象
-            // redEdges.rotateX(Math.PI / 2); // 将线条对象放置到与立方体相同的位置
-
             // 創建黃色三角錐
             var yellowGeometry = new THREE.CylinderGeometry(0, radius, height, 4, 1)
             var yellowMaterial = new THREE.MeshBasicMaterial({ color: getSubjectTempColor(sTemp) });
             var yellowCone = new THREE.Mesh(yellowGeometry, yellowMaterial);
             yellowCone.position.set(0, 0, -(height)); // 將三角錐移至 x 軸上
             yellowCone.rotateX(-(Math.PI / 2));
-
-            // var yellowEdgesGeometry = new THREE.EdgesGeometry(yellowGeometry); // 创建立方体的边线几何体
-            // var yellowEdgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // 创建线条材质
-            // var yellowEdges = new THREE.LineSegments(yellowEdgesGeometry, yellowEdgesMaterial); // 创建线条对象
-            // yellowEdges.position.set(0, 0, -(height)); // 將黃色三角錐移至 x 軸上
-            // yellowEdges.rotateX(-(Math.PI / 2)); // 将线条对象放置到与立方体相同的位置
 
             var cube = new THREE.Group();
             cube.add(redCone);
@@ -483,7 +426,7 @@ map.addControl(new ResetViewControl(), 'top-left');
                     type: 'custom',
                     renderingMode: '3d',
                     onAdd: function (map, mbxContext) {
-                        $.getJSON("./data/0910M_P3.json", function (data) {
+                        $.getJSON("./data/0809M_P1.json", function (data) {
                             window.tb = new Threebox(
                                 map,
                                 mbxContext,
@@ -504,7 +447,7 @@ map.addControl(new ResetViewControl(), 'top-left');
 
                             for (var i = 0; i < data.length; i++) {
                                 
-                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['heat_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1)), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
+                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['熱感受_7-value'].toFixed(1)-0.5), parseFloat(data[i]['pmv'].toFixed(1)), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
                                 
                             }
 
