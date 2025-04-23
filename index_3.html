@@ -24,6 +24,22 @@
             width: 100%;
             height: 100%;
         }
+
+        /* .mapboxgl-ctrl-reset {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 3 2 12h3v8h6v-5h2v5h6v-8h3z"/></svg>');
+            background-size: 60% 60%;
+            background-position: center;
+            background-repeat: no-repeat;
+            } */
+/* 替代：直接用文字 ↺ 當圖示（不用 SVG）*/
+.mapboxgl-ctrl-reset {
+  font-size: 18px; line-height: 28px;    /* 文字置中 */
+}
+.mapboxgl-ctrl-reset::before {
+  content: "↺";               /* 也可換成 ⌂ 或 🏠 等 */
+}
+
+
     </style>
 </head>
 
@@ -33,19 +49,28 @@
 
     <script>
         var capsuleHeight = 60;
-        var centerCoord = [121.531, 25.041, 60];
+        var centerCoord = [121.5305, 25.04, 60];
         // var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#d1e5f0","#67a9cf","#2166ac"]
         // var colors=["#b2182b","#ef8a62","#fddbc7","#ffffff","#BDD4DB","#67a9cf","#2166ac"]
 
         mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
 
+        const initialView = {                      //  ← 依你的設定改值
+            center: [121.5305, 25.04],               // 只有經緯度即可
+            zoom:   17,
+            pitch:  60,
+            bearing: 0
+            };
+
+        
+        
         var map = new mapboxgl.Map({
             container: 'map',
             
             // style: 'mapbox://styles/mapbox/streets-v11',
             style:'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
             center: centerCoord,
-            zoom: 17.5,
+            zoom: 17,
             pitch: 60,
             antialias: true,
 
@@ -62,6 +87,42 @@
         map.addControl(compassControl, 'top-left'); // 可改 'top-right' 等位置
         /* ★★★ 指北針結束 ★★★ */
 
+
+        class ResetViewControl {
+  onAdd(map) {
+    this._map = map;
+
+    // 外層容器（保留 Mapbox 樣式）
+    const wrapper = document.createElement('div');
+    wrapper.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+
+    // 按鈕
+    const btn = document.createElement('button');
+    btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-reset';
+    btn.type  = 'button';
+    btn.title = '回到初始視角';
+
+    // 點擊事件：飛回初始參數
+    btn.onclick = () => {
+      map.flyTo({
+        center:  initialView.center,
+        zoom:    initialView.zoom,
+        pitch:   initialView.pitch,
+        bearing: initialView.bearing,
+        duration: 1000            // 動畫 1 秒
+      });
+    };
+
+    wrapper.appendChild(btn);
+    this._btn = btn;
+    return wrapper;
+  }
+  onRemove() {
+    this._btn.parentNode.remove();
+    this._map = undefined;
+  }
+}
+map.addControl(new ResetViewControl(), 'top-left');
         // map.on('load', () => {
         // console.log('Loaded style:', map.getStyle());
         // });
