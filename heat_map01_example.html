@@ -43,24 +43,34 @@
     <div id="map"></div>
 
     <script>
+        const blockLabels = [
+        { block: 50,  text: 'A',   height: 30 },
+        { block: 4, text: 'B',   height: 30 },
+        { block: 103, text: 'C', height: 30 },
+        { block: 60, text: 'D', height: 30 }
+        ];
+
+
+
+
         /* ----------- 地圖基本設定 ----------- */
-        const centerCoord = [121.531, 25.041, 60];   // [lon, lat, elev]
-        
-        const initialView = {                      //  ← 依你的設定改值
-            center: [121.5305, 25.04],               // 只有經緯度即可
-            zoom:   17.5,
-            pitch:  60,
+        const initialView = {                      
+            center: [121.5305, 25.0405],               
+            zoom: 16.3,
+            pitch: 0,
             bearing: 0
-            };
+        };
+
         mapboxgl.accessToken =
             "pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg";
-
+        
         const map = new mapboxgl.Map({
             container: "map",
-            style: "mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr",
-            center: centerCoord,
-            zoom: 17.5,
-            pitch: 60,
+            style: "mapbox://styles/piaopiaoen/cm9vnl58100iu01sp9ty8fqez",
+            center: initialView.center,
+            zoom: initialView.zoom,
+            pitch: initialView.pitch,
+            bearing: initialView.bearing,
             antialias: true,
             localIdeographFontFamily: "Noto Sans CJK TC",
             language: "zh-Hant"
@@ -140,51 +150,77 @@
             return colors[6];
         }
 
-        /* ----------- 載入資料並繪製線段 ----------- */
-        map.on("load", () => {
-            map.addLayer({
-                id: "custom_layer",
-                type: "custom",
-                renderingMode: "3d",
-                onAdd: (map, mbxContext) => {
-                    /* Threebox 初始化 */
-                    window.tb = new Threebox(map, mbxContext, {
-                        defaultLights: false,
-                        realSunlight: false
-                    });
-                    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
-                    tb.add(ambientLight);
+        function calculateNewCoordinates(lat1, lon1, distance, angle){
+            const R = 6371000, d = distance / R, brng = angle * Math.PI/180;
+            const φ1 = lat1 * Math.PI/180, λ1 = lon1 * Math.PI/180;
+            const φ2 = Math.asin(Math.sin(φ1)*Math.cos(d)+Math.cos(φ1)*Math.sin(d)*Math.cos(brng));
+            const λ2 = λ1 + Math.atan2(Math.sin(brng)*Math.sin(d)*Math.cos(φ1),
+                                        Math.cos(d)-Math.sin(φ1)*Math.sin(φ2));
+            return { lat: φ2*180/Math.PI, lon: λ2*180/Math.PI };
+        }
 
-                    /* 讀取 */
-                    $.getJSON("./data/0910M_P3.json", data => {
-                        data.forEach(row => {
-                            const start = [
-                                parseFloat(row.start_lon),
-                                parseFloat(row.start_lat),
-                                1
-                            ];
-                            const end = [
-                                parseFloat(row.end_lon),
-                                parseFloat(row.end_lat),
-                                1
-                            ];
-                            const pmv = parseFloat(row.pmv);
+        /* ★★★ 3. 建立單一 3D 文字 ★★★ */
+        function makeTopLabel(font, lon, lat, text, height){
+            const geo = new THREE.TextGeometry(text,{font,size:15,height:0.3});
+            const mat = new THREE.MeshBasicMaterial({color:'#FFD700'});
+            const mesh = new THREE.Mesh(geo,mat);
 
-                            const line = tb.line({
-                                geometry: [start, end],
-                                color: getPMVColor(pmv),
-                                width: 10
-                            });
-                            tb.add(line);
-                        });
-                    });
+            const glowGeo = new THREE.TextGeometry(text,{font,size:15.5,height:0.1});
+            const glowMat = new THREE.MeshBasicMaterial({color:'#FFD700',transparent:true,opacity:0.5});
+            const glow = new THREE.Mesh(glowGeo,glowMat);
 
-                },
-                render: () => {
-                    if (typeof tb !== "undefined") tb.update();
-                }
-            });
+            geo.center();      glowGeo.center();
+            // geo.rotateX(Math.PI/2);      
+            // glowGeo.rotateX(Math.PI/2);  
+            geo.rotateZ(Math.PI);
+            glowGeo.rotateZ(Math.PI);
+
+            const grp = new THREE.Group(); grp.add(glow); grp.add(mesh);
+            const obj3d = tb.Object3D({obj:grp,units:'meters'});
+            obj3d.setCoords([lon,lat,height]);
+            tb.add(obj3d);
+        }
+
+        /* ★★★ 4. 依 blockLabels 批次加標籤 ★★★ */
+        function addAllLabels(font,data){
+        blockLabels.forEach(b=>{
+            const hit = data.find(d=>Number(d.Block)===b.block);
+            if(hit) makeTopLabel(font,+hit.lon,+hit.lat,b.text,b.height);
         });
+        }
+    
+ 
+/* ----------- Mapbox 與 Threebox 主程式 ----------- */
+        map.on('load', () => {
+        map.addLayer({
+            id: 'custom_layer',
+            type: 'custom',
+            renderingMode: '3d',
+            onAdd: (map, ctx) => {
+            window.tb = new Threebox(map, ctx, { defaultLights:false, realSunlight:false });
+            tb.add(new THREE.AmbientLight(0xffffff, 2));
+
+            /* 先載字型 → 再載資料 → 畫線 + 標籤 */
+            new THREE.FontLoader().load(
+                'https://cdn.rawgit.com/mrdoob/three.js/master/examples/fonts/helvetiker_regular.typeface.json',
+                font => {
+                $.getJSON('./data/0910M_P3.json', data => {
+                    data.forEach(r => {
+                    tb.add(tb.line({
+                        geometry: [[+r.start_lon, +r.start_lat, 1], [+r.end_lon, +r.end_lat, 1]],
+                        color: getPMVColor(+r.pmv),
+                        width: 10
+                    }));
+                    });
+                    addAllLabels(font, data);   // 加上 A/B/C/D 浮標
+                });
+                });
+            },
+            render: () => tb && tb.update()
+        });
+        });
+    
+    
     </script>
 </body>
 
