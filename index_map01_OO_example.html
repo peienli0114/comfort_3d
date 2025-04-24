@@ -50,30 +50,27 @@
         ];
 
 
-        var capsuleHeight = 60;
-        var centerCoord = [121.5305, 25.04, 60];
+        const capsuleHeight = 60;
 
-        mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
-
-        const initialView = {                      //  ← 依你的設定改值
-            center: [121.5305, 25.04],               // 只有經緯度即可
-            zoom:   17,
-            pitch:  60,
-            bearing: 0
-            };
-
-        var map = new mapboxgl.Map({
-            container: 'map',
-            
-            // style: 'mapbox://styles/mapbox/streets-v11',
-            style:'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
-            center: centerCoord,
-            zoom: 17,
+        const mapboxToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
+        const initialView = {
+            center: [121.5305, 25.04],
+            zoom: 16.5,
             pitch: 60,
-            antialias: true,
+            bearing: 0
+        };
+        const centerCoord = [121.5305, 25.04, 60];
+        mapboxgl.accessToken = mapboxToken;
 
-            localIdeographFontFamily: 'Noto Sans CJK TC', // 支援中文的字體
-           language: 'zh-Hant' // 設置為繁體中文
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
+            center: centerCoord,
+            zoom: initialView.zoom,
+            pitch: initialView.pitch,
+            antialias: true,
+            localIdeographFontFamily: 'Noto Sans CJK TC',
+            language: 'zh-Hant'
         });
 
 
