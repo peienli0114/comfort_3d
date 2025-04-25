@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>0910M_P3_OO</title>
+    <title>MAP01_0910M_P3_OO</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
@@ -50,27 +50,30 @@
         ];
 
 
-        const capsuleHeight = 60;
+        var capsuleHeight = 60;
+        var centerCoord = [121.5305, 25.04, 60];
 
-        const mapboxToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
-        const initialView = {
-            center: [121.5305, 25.04],
-            zoom: 16.4,
-            pitch: 60,
+        mapboxgl.accessToken = 'pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg';
+
+        const initialView = {                      //  ← 依你的設定改值
+            center: [121.5305, 25.04],               // 只有經緯度即可
+            zoom:   16.4,
+            pitch:  60,
             bearing: 0
-        };
-        const centerCoord = [121.5305, 25.04, 60];
-        mapboxgl.accessToken = mapboxToken;
+            };
 
-        const map = new mapboxgl.Map({
+        var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
+            
+            // style: 'mapbox://styles/mapbox/streets-v11',
+            style:'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
             center: centerCoord,
-            zoom: initialView.zoom,
-            pitch: initialView.pitch,
+            zoom: 17,
+            pitch: 60,
             antialias: true,
-            localIdeographFontFamily: 'Noto Sans CJK TC',
-            language: 'zh-Hant'
+
+            localIdeographFontFamily: 'Noto Sans CJK TC', // 支援中文的字體
+           language: 'zh-Hant' // 設置為繁體中文
         });
 
 
@@ -343,9 +346,9 @@
             let widthSegments = 32;
 
             // 有雙邊碼 / 有雙變 
-            let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
-            let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
-            let CylinderWitdth=integration*radius
+            // let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
+            // let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
+            // let CylinderWitdth=integration*radius
 
             // 有雙編碼 / 無雙變 
             // let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
@@ -359,9 +362,9 @@
             // let CylinderWitdth=radius
 
             // 無雙編碼 / 有雙變  
-            // let topCylinderHeight = radius*3 ;      
-            // let bottomCylinderHeight = radius*3 ;  
-            // let CylinderWitdth=integration*radius
+            let topCylinderHeight = radius*3 ;      
+            let bottomCylinderHeight = radius*3 ;  
+            let CylinderWitdth=integration*radius
 
             var materialTop = new THREE.MeshBasicMaterial({ color: getPMVColor(pmv) ,transparent: false ,fog:false});
             var materialBottom = new THREE.MeshBasicMaterial({ color: getSubjectTempColor(sTemp),transparent: false,fog: false});
@@ -517,7 +520,7 @@
 
                             for (var i = 0; i < data.length; i++) {
                                 
-                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['heat_13-value'].toFixed(1))+1, parseFloat(data[i]['heat_7-value'].toFixed(1)), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
+                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['heat_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1)), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
                                 
                             }
                             addAllLabels(font, data);

@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>08M_P2_OO</title>
+    <title>MAP03_08M_P2_OO</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
@@ -57,7 +57,7 @@
 
         const initialView = {                      //  ← 依你的設定改值
             center: [121.5305, 25.04],               // 只有經緯度即可
-            zoom:   17,
+            zoom:   16.4,
             pitch:  60,
             bearing: 0
             };
@@ -68,7 +68,7 @@
             // style: 'mapbox://styles/mapbox/streets-v11',
             style:'mapbox://styles/piaopiaoen/cm9lof90y009n01soaal5dqzr',
             center: centerCoord,
-            zoom: 17,
+            zoom: 16.4,
             pitch: 60,
             antialias: true,
 
@@ -522,7 +522,7 @@
 
                             for (var i = 0; i < data.length; i++) {
                                 
-                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['熱感受_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1)-0.5), parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
+                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['熱感受_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1))-1.2, parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
                                 
                             }
                             addAllLabels(font, data);

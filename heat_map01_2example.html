@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Street Segments by PMV</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <!-- Mapbox GL JS & Threebox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.css" rel="stylesheet" />
+
+    <!-- jQuery + 讀 CSV 的外掛 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        
+        .mapboxgl-ctrl-reset {
+        font-size: 18px; line-height: 28px;    /* 文字置中 */
+        }
+        .mapboxgl-ctrl-reset::before {
+        content: "↺";               /* 也可換成 ⌂ 或 🏠 等 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script>
+        const blockLabels = [
+        { block: 50,  text: 'A',   height: 30 },
+        { block: 4, text: 'B',   height: 30 },
+        { block: 103, text: 'C', height: 30 },
+        { block: 60, text: 'D', height: 30 }
+        ];
+
+
+
+
+        /* ----------- 地圖基本設定 ----------- */
+        const initialView = {                      
+            center: [121.5305, 25.0405],               
+            zoom: 16.3,
+            pitch: 0,
+            bearing: 0
+        };
+
+        mapboxgl.accessToken =
+            "pk.eyJ1IjoicGlhb3BpYW9lbiIsImEiOiJjbTlsa2Y2d28wM2d4MmxyNzhqem12MWd1In0.NbcsNNsBZtV-pLab8nBtPg";
+        
+        const map = new mapboxgl.Map({
+            container: "map",
+            style: "mapbox://styles/piaopiaoen/cm9vnl58100iu01sp9ty8fqez",
+            center: initialView.center,
+            zoom: initialView.zoom,
+            pitch: initialView.pitch,
+            bearing: initialView.bearing,
+            antialias: true,
+            localIdeographFontFamily: "Noto Sans CJK TC",
+            language: "zh-Hant"
+        });
+        /* ★★★ 加入指北針 ★★★ */
+        const compassControl = new mapboxgl.NavigationControl({
+            showZoom: false,        // 不顯示 + / − 按鈕；如需就改為 true
+            visualizePitch: true    // 保留 pitch 指示
+        });
+        map.addControl(compassControl, 'top-left'); // 可改 'top-right' 等位置
+        /* ★★★ 指北針結束 ★★★ */
+
+
+     class ResetViewControl {
+        onAdd(map) {
+            this._map = map;
+
+            // 外層容器（保留 Mapbox 樣式）
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+
+            // 按鈕
+            const btn = document.createElement('button');
+            btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-reset';
+            btn.type  = 'button';
+            btn.title = '回到初始視角';
+
+            // 點擊事件：飛回初始參數
+            btn.onclick = () => {
+            map.flyTo({
+                center:  initialView.center,
+                zoom:    initialView.zoom,
+                pitch:   initialView.pitch,
+                bearing: initialView.bearing,
+                duration: 1000            // 動畫 1 秒
+            });
+            };
+
+            wrapper.appendChild(btn);
+            this._btn = btn;
+            return wrapper;
+        }
+        
+        onRemove() {
+            this._btn.parentNode.remove();
+            this._map = undefined;
+        }
+    }
+        map.addControl(new ResetViewControl(), 'top-left');
+
+
+
+
+
+        /* ----------- 顏色對照 ----------- */
+        const baseColors = [
+            "#b2182b", //  3 以上 (hot)
+            "#ef8a62", //  2 ~ 2.5
+            "#fddbc7", //  1 ~ 1.5
+            "#ffffff", // -0.5 ~ 0.5
+            "#d1e5f0", // -1 ~ -0.5
+            "#67a9cf", // -2 ~ -1
+            "#2166ac"  // -3 以下 (cold)
+        ];
+        // 轉三維線性空間色碼（Three.js 內部使用）
+        const colors = baseColors.map(hex =>
+            new THREE.Color(hex).convertSRGBToLinear().getStyle()
+        );
+
+        function getPMVColor(pmv) {
+            if (pmv >= 2.5) return colors[0];
+            if (pmv >= 1.5) return colors[1];
+            if (pmv >= 0.5) return colors[2];
+            if (pmv >= -0.5) return colors[3];
+            if (pmv >= -1.5) return colors[4];
+            if (pmv >= -2.5) return colors[5];
+            return colors[6];
+        }
+
+        function calculateNewCoordinates(lat1, lon1, distance, angle){
+            const R = 6371000, d = distance / R, brng = angle * Math.PI/180;
+            const φ1 = lat1 * Math.PI/180, λ1 = lon1 * Math.PI/180;
+            const φ2 = Math.asin(Math.sin(φ1)*Math.cos(d)+Math.cos(φ1)*Math.sin(d)*Math.cos(brng));
+            const λ2 = λ1 + Math.atan2(Math.sin(brng)*Math.sin(d)*Math.cos(φ1),
+                                        Math.cos(d)-Math.sin(φ1)*Math.sin(φ2));
+            return { lat: φ2*180/Math.PI, lon: λ2*180/Math.PI };
+        }
+
+        /* ★★★ 3. 建立單一 3D 文字 ★★★ */
+        function makeTopLabel(font, lon, lat, text, height){
+            const geo = new THREE.TextGeometry(text,{font,size:15,height:0.3});
+            const mat = new THREE.MeshBasicMaterial({color:'#FFD700'});
+            const mesh = new THREE.Mesh(geo,mat);
+
+            const glowGeo = new THREE.TextGeometry(text,{font,size:15.5,height:0.1});
+            const glowMat = new THREE.MeshBasicMaterial({color:'#FFD700',transparent:true,opacity:0.5});
+            const glow = new THREE.Mesh(glowGeo,glowMat);
+
+            geo.center();      glowGeo.center();
+            // geo.rotateX(Math.PI/2);      
+            // glowGeo.rotateX(Math.PI/2);  
+            geo.rotateZ(Math.PI);
+            glowGeo.rotateZ(Math.PI);
+
+            const grp = new THREE.Group(); grp.add(glow); grp.add(mesh);
+            const obj3d = tb.Object3D({obj:grp,units:'meters'});
+            obj3d.setCoords([lon,lat,height]);
+            tb.add(obj3d);
+        }
+
+        /* ★★★ 4. 依 blockLabels 批次加標籤 ★★★ */
+        function addAllLabels(font,data){
+        blockLabels.forEach(b=>{
+            const hit = data.find(d=>Number(d.Block)===b.block);
+            if(hit) makeTopLabel(font,+hit.lon,+hit.lat,b.text,b.height);
+        });
+        }
+    
+ 
+/* ----------- Mapbox 與 Threebox 主程式 ----------- */
+        map.on('load', () => {
+        map.addLayer({
+            id: 'custom_layer',
+            type: 'custom',
+            renderingMode: '3d',
+            onAdd: (map, ctx) => {
+            window.tb = new Threebox(map, ctx, { defaultLights:false, realSunlight:false });
+            tb.add(new THREE.AmbientLight(0xffffff, 2));
+
+            /* 先載字型 → 再載資料 → 畫線 + 標籤 */
+            new THREE.FontLoader().load(
+                'https://cdn.rawgit.com/mrdoob/three.js/master/examples/fonts/helvetiker_regular.typeface.json',
+                font => {
+                $.getJSON('./data/0910M_P3.json', data => {
+                    data.forEach(r => {
+                    tb.add(tb.line({
+                        geometry: [[+r.start_lon, +r.start_lat, 1], [+r.end_lon, +r.end_lat, 1]],
+                        color: getPMVColor(+r.pmv),
+                        width: 10
+                    }));
+                    });
+                    addAllLabels(font, data);   // 加上 A/B/C/D 浮標
+                });
+                });
+            },
+            render: () => tb && tb.update()
+        });
+        });
+    
+    
+    </script>
+</body>
+
+</html>
