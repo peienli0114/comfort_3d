@@ -208,7 +208,7 @@
                     data.forEach(r => {
                     tb.add(tb.line({
                         geometry: [[+r.start_lon, +r.start_lat, 1], [+r.end_lon, +r.end_lat, 1]],
-                        color: getPMVColor(+r.pmv),
+                        color: getPMVColor(+r["heat_7-value"]),
                         width: 10
                     }));
                     });
