@@ -211,6 +211,14 @@
                         color: getPMVColor(+parseFloat(r["heat_7-value"].toFixed(1))),
                         width: 10
                     }));
+                             // ★★★ 加這段：畫一個點（小球）
+                    // const sphereGeometry = new THREE.SphereGeometry(1.5, 16, 16); // 半徑1.5，精細度16
+                    // const sphereMaterial = new THREE.MeshBasicMaterial({ color: '#000000' }); // 黑色
+                    // const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+                    // const sphereObj = tb.Object3D({ obj: sphereMesh, units: 'meters' });
+                    // sphereObj.setCoords([+r.lon, +r.lat, 1]);
+                    // tb.add(sphereObj);
+
                     });
                     addAllLabels(font, data);   // 加上 A/B/C/D 浮標
                 });
