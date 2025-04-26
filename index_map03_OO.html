@@ -350,7 +350,7 @@
             // 有雙邊碼 / 有雙變 
             let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
             let bottomCylinderHeight = radius * (1 + ((sTemp + 3)/6)*4);  // 映射 sTemp (-3 ~ 3) -> (1 ~ 2)
-            let CylinderWitdth=integration*radius
+            let CylinderWitdth=integration*(radius+0.5)
 
             // 有雙編碼 / 無雙變 
             // let topCylinderHeight = radius * (1 + ((pmv + 3)/6)*4);       // 映射 pmv (-3 ~ 3) -> (1 ~ 2)
@@ -366,7 +366,7 @@
             // 無雙編碼 / 有雙變  
             // let topCylinderHeight = radius*3 ;      
             // let bottomCylinderHeight = radius*3 ;  
-            // let CylinderWitdth=integration*radius
+            // let CylinderWitdth=integration*(radius+0.5)
 
             var materialTop = new THREE.MeshBasicMaterial({ color: getPMVColor(pmv) ,transparent: false ,fog:false});
             var materialBottom = new THREE.MeshBasicMaterial({ color: getSubjectTempColor(sTemp),transparent: false,fog: false});
