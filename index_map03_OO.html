@@ -522,7 +522,10 @@
 
                             for (var i = 0; i < data.length; i++) {
                                 
-                                    createACapsule(font, [data[i]['lon'], data[i]['lat']], parseFloat(data[i]['熱感受_7-value'].toFixed(1)), parseFloat(data[i]['pmv'].toFixed(1))-1.2, parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
+                                    createACapsule(font, [data[i]['lon'], data[i]['lat']],
+                                     parseFloat(data[i]['熱感受_7-value'].toFixed(1)), 
+                                     parseFloat(data[i]['pmv'].toFixed(1))-1.2, 
+                                     parseFloat(data[i]['Integration (HH) R3'].toFixed(1)));
                                 
                             }
                             addAllLabels(font, data);
