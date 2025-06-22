@@ -10,6 +10,8 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
 
+    <!-- Add Three.js before Threebox -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/jscastro76/threebox@v.2.2.2/dist/threebox.css" rel="stylesheet" />
 
@@ -208,7 +210,8 @@
                     data.forEach(r => {
                     tb.add(tb.line({
                         geometry: [[+r.start_lon, +r.start_lat, 1], [+r.end_lon, +r.end_lat, 1]],
-                        color: getPMVColor(+r.pmv),
+                        color: getPMVColor(parseFloat(r['heat_7-value'].toFixed(1))),
+                        // parseFloat(data[i]['heat_7-value'].toFixed(1))
                         width: 10
                     }));
                     });
